@@ -68,6 +68,17 @@ const Home = () => {
         </div>
     </div>
 
+    <div className="section"></div>
+
+    <div className="section">
+        <p>Trusted across Rajshahi</p>
+        <div className="stats-row">
+            Stats
+        </div>
+    </div>
+
+    <div className="divider"></div>
+    
     </>
   );
 };

@@ -56,6 +56,18 @@ const Home = () => {
         </ul>
     </div>
 
+    <div className="divider"></div>
+
+    <div className="section">
+        <p>How MediNear works</p>
+        <p>Three steps to the right care</p>
+        <div className="steps">
+            step card - 1 |
+            step card - 2 |
+            step card - 3
+        </div>
+    </div>
+
     </>
   );
 };

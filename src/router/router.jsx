@@ -7,6 +7,8 @@ import HospitalDetail from "../pages/HospitalDetail";
 import ServiceSearch from "../pages/ServiceSearch";
 import About from "../pages/About";
 import Contact from "../pages/Contact";
+import Login from "../pages/auth/Login";
+import Register from "../pages/auth/Register";
 import Root from "../pages/Navbar";
 export const router = createBrowserRouter([
     {
@@ -20,6 +22,8 @@ export const router = createBrowserRouter([
             {path: "service-search", element: <ServiceSearch />},
             {path: "about", element: <About />},
             {path: "contact", element: <Contact />},
+            {path: "login", element: <Login />},
+            {path: "register", element: <Register />},
         ]
     }
 ])

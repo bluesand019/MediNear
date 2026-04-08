@@ -26,6 +26,12 @@ export default function Root() {
             <li>
               <Link to={`/hospital-detail`}>Hospitals</Link>
             </li>
+            <li>
+              <Link to={`/login`}>Log in</Link>
+            </li>
+            <li>
+              <Link to={`/register`}>Sign up</Link>
+            </li>
           </ul>
         </nav>
       </div>

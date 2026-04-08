@@ -41,6 +41,21 @@ const Home = () => {
             <li>View all</li>
         </ul>
     </div>
+
+    <div className="divider"></div>
+
+    <div className="section">
+        <p className="sec-title">Find doctors by specialization</p>
+        <p className="sec-sub">Browse specialists available near you</p>
+        <ul>
+            <li>Cardiologist</li>
+            <li>Neurologist</li>
+            <li>Dentist</li>
+            <li>Dermatologist</li>
+            <li>+More specialists</li>
+        </ul>
+    </div>
+
     </>
   );
 };

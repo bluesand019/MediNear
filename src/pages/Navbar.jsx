@@ -6,6 +6,7 @@ export default function Root() {
     <>
       <div id="navbar">
         <nav>
+            <h1>MediNear</h1>
           <ul>
             <li>
               <Link to={`/`} href={`/`}>Home</Link>
@@ -15,6 +16,15 @@ export default function Root() {
             </li>
             <li>
               <Link to={`/contact`}>Contact</Link>
+            </li>
+            <li>
+              <Link to={`/service-search`}>Services</Link>
+            </li>
+            <li>
+              <Link to={`/doctor-search`}>Doctors</Link>
+            </li>
+            <li>
+              <Link to={`/hospital-detail`}>Hospitals</Link>
             </li>
           </ul>
         </nav>

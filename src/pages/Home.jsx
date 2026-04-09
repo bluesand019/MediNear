@@ -30,20 +30,12 @@ const Home = () => {
 
       <div className="divider"></div>
 
-      <div className="section">
-        <p className="sec-title">Search by service type</p>
-        <p className="sec-sub">Common diagnostic and treatment services</p>
-        <ul>
-          <li>Blood test</li>
-          <li>Xray</li>
-          <li>MRI/CT Scan</li>
-          <li>Ultrasound</li>
-          <li>ECG</li>
-          <li>Consultant</li>
-          <li>Pathology</li>
-          <li>View all</li>
-        </ul>
-      </div>
+      <GridList
+      title="Search by service type"
+      sub="Common diagnostic and treatment services"
+      dummy_data={["Blood test", "Xray", "MRI/CT Scan", "Ultrasound", "ECG", "Consultant", "Pathology", "View all"]}
+      className="services"
+      />
 
       <div className="divider"></div>
 

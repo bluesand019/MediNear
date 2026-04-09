@@ -1,6 +1,7 @@
 import React from "react";
 import Footer from "../components/layout/Footer";
 import Searchbar from "../components/search/Searchbar";
+import GridList from "../components/layout/GridList";
 
 const Home = () => {
   return (
@@ -15,7 +16,10 @@ const Home = () => {
           </p>
         </div>
         <div className="search-box">
-          <Searchbar type="text" placeholder="Search: X-ray, blood test, MRI, Cardiologists..." />
+          <Searchbar
+            type="text"
+            placeholder="Search: X-ray, blood test, MRI, Cardiologists..."
+          />
           <button>Search</button>
         </div>
         <div className="loc-row">
@@ -43,17 +47,18 @@ const Home = () => {
 
       <div className="divider"></div>
 
-      <div className="section">
-        <p className="sec-title">Find doctors by specialization</p>
-        <p className="sec-sub">Browse specialists available near you</p>
-        <ul>
-          <li>Cardiologist</li>
-          <li>Neurologist</li>
-          <li>Dentist</li>
-          <li>Dermatologist</li>
-          <li>+More specialists</li>
-        </ul>
-      </div>
+      <GridList
+        title="Find doctors by specialization"
+        sub="Browse specialists available near you"
+        dummy_data={[
+          "Cardiologist",
+          "Neurologist",
+          "Dentist",
+          "Dermatologist",
+          "+More specialists",
+        ]}
+        className="specialists"
+      />
 
       <div className="divider"></div>
 
@@ -65,7 +70,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="section"></div>
+      <div className="divider"></div>
 
       <div className="section">
         <p>Trusted across Rajshahi</p>
@@ -82,9 +87,7 @@ const Home = () => {
         <button>Jon ad a provider</button>
       </div>
 
-    <Footer />
-
-
+      <Footer />
     </>
   );
 };

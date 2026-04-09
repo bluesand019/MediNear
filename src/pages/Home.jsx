@@ -1,5 +1,6 @@
 import React from "react";
 import Footer from "../components/layout/Footer";
+import Searchbar from "../components/search/Searchbar";
 
 const Home = () => {
   return (
@@ -14,10 +15,7 @@ const Home = () => {
           </p>
         </div>
         <div className="search-box">
-          <input
-            type="text"
-            placeholder="Search: X-ray, blood test, MRI, Cardiologists..."
-          />
+          <Searchbar type="text" placeholder="Search: X-ray, blood test, MRI, Cardiologists..." />
           <button>Search</button>
         </div>
         <div className="loc-row">

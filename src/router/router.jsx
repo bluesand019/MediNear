@@ -9,7 +9,7 @@ import About from "../pages/About";
 import Contact from "../pages/Contact";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
-import Root from "../pages/Navbar";
+import Root from "../components/layout/Navbar";
 export const router = createBrowserRouter([
     {
         path: "/",

@@ -1,4 +1,5 @@
 import React from "react";
+import Footer from "../components/layout/Footer";
 
 const Home = () => {
   return (
@@ -83,9 +84,7 @@ const Home = () => {
         <button>Jon ad a provider</button>
       </div>
 
-      <div className="footer-bar">
-        <span>© 2026 MediNear</span>
-      </div>
+    <Footer />
 
 
     </>

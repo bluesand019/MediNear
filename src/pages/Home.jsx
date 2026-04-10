@@ -76,7 +76,7 @@ const Home = () => {
           List your services and doctors on MediNear to reach more patients in
           your area.
         </p>
-        <button>Jon ad a provider</button>
+        <button>Join as a provider</button>
       </div>
 
       <Footer />

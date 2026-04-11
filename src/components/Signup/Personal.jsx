@@ -1,8 +1,12 @@
 import React from 'react'
 
-const Personal = () => {
+const Personal = ({setStage}) => {
+    const submitHandler = (e) => {
+        e.preventDefault();
+        setStage(2);
+    }
   return (
-    <form>
+    <form onSubmit={submitHandler}>
         <h4>PERSONAL INFORMATION</h4>
         <label htmlFor="First-name">First name</label> <br />
         <input type="text" id="First-name" name="First-name" /> <br />

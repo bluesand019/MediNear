@@ -9,11 +9,21 @@ const DoctorSearch = () => {
     experience: 8,
     rating: 4.9,
     distance: 0.8,
-    hopital: "Ibn Sina Hospital, Rajshahi"
+    hospital: "Ibn Sina Hospital, Rajshahi"
   }]
   return (
-    <div>
-      
+    <div className='doctor-li-container'>
+      {DUMMY_DOCTORS.map(item => {
+        return <DoctorCard 
+        name={item.name}
+        gender={item.gender}
+        department={item.department}
+        experience={item.experience}
+        rating={item.rating}
+        distance={item.distance}
+        hospital={item.hospital}
+        />
+      })}
     </div>
   )
 }

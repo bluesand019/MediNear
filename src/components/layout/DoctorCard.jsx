@@ -2,7 +2,7 @@ import React from 'react'
 
 const DoctorCard = ({name, gender, department, experience, rating, distance, hospital}) => {
   return (
-    <li>
+    <li key={Date.now() + ""}>
       <h4>{name}</h4>
       <p>{gender}</p>
       <p>{department}</p>

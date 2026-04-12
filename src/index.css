@@ -1,14 +1,1 @@
-#navbar {
-    display: flex;
-    justify-content: space-around;
-}
-#navbar nav {
-    display: flex;
-    flex-direction: row;
-}
-
-#navbar nav ul {
-    display: flex;
-    list-style: none;
-    gap: 20px;
-}
+@import "tailwindcss";

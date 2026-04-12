@@ -12,7 +12,7 @@ const Hero = () => {
 
       {/* Main Heading */}
       {/* Parent Container: Centers the entire row on the screen */}
-      <div className="flex w-full items-center justify-center gap-5 bg-[#A4B494]/20 my-5">
+      <div className="flex w-full items-center justify-center gap-5 bg-[#cfe4d8]/30 my-5 pt-5 rounded-md">
         {/* Text Content: Left Side */}
         <div className="text-left">
           <h2 className="max-w-2xl text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">

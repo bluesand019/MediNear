@@ -10,7 +10,34 @@ const DoctorSearch = () => {
     rating: 4.9,
     distance: 0.8,
     hospital: "Ibn Sina Hospital, Rajshahi"
-  }]
+  },
+{
+    name: "Dr. Rezaul Karim",
+    gender: "Male",
+    department: "Cardiologist",
+    experience: 20,
+    rating: 4.9,
+    distance: 5.1,
+    hospital: "Heart Foundation Hospital"
+  },
+{
+    name: "Dr. Fahmida Hossain",
+    gender: "Female",
+    department: "Cardiologist",
+    experience: 14,
+    rating: 4.8,
+    distance: 1.2,
+    hospital: "Rajshahi Medical College Hospital"
+  },
+{
+    name: "Dr. Rubina Khanam",
+    gender: "Female",
+    department: "Dermatologist",
+    experience: 11,
+    rating: 4.7,
+    distance: 3.2,
+    hospital: "Skin & Care Center"
+  },]
   return (
     <div className='doctor-li-container'>
       {DUMMY_DOCTORS.map(item => {

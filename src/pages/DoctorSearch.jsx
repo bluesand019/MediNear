@@ -1,5 +1,6 @@
 import React from 'react'
 import DoctorCard from '../components/layout/DoctorCard'
+import Searchbar from '../components/search/Searchbar'
 
 const DoctorSearch = () => {
   const DUMMY_DOCTORS = [{
@@ -40,6 +41,14 @@ const DoctorSearch = () => {
   },]
   return (
     <div className='doctor-li-container'>
+      <div className="header">
+        <Searchbar type="text" placeholder="Search by name or specialization" />
+        <button>Rajshahi</button>
+      </div>
+      <div className="filter">
+        {/* filter section will be written here */}
+      </div>
+      <div className="doctors">
       {DUMMY_DOCTORS.map(item => {
         return <DoctorCard 
         name={item.name}
@@ -51,6 +60,7 @@ const DoctorSearch = () => {
         hospital={item.hospital}
         />
       })}
+      </div>
     </div>
   )
 }

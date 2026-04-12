@@ -6,31 +6,6 @@ import GridList from "../components/layout/GridList";
 const Home = () => {
   return (
     <>
-      {/* <div className="flex flex-col justify-center items-center text-center w-full min-h-[200px]">
-        <div className="hero-tag">Find care near you, instantly</div>
-        <h2>Medical services & doctors near Rajshahi</h2>
-
-        <div className="hero-sub max-w-lg">
-          <p>
-            Search hospitals, diagnostic centers and specialist doctors. Compare
-            prices, ratings and availability in one place.
-          </p>
-        </div>
-
-        <div className="search-box flex gap-2 mt-4">
-          <Searchbar
-            type="text"
-            placeholder="Search: X-ray, blood test, MRI, Cardiologists..."
-          />
-          <button>Search</button>
-        </div>
-
-        <div className="loc-row flex items-center gap-2 mt-6">
-          <span>Your location</span>
-          <button className="underline">Change city</button>
-        </div>
-      </div> */}
-      {/* new code */}
       <div className="flex min-h-[60vh] flex-col items-center justify-center px-4 py-16 text-center">
         {/* Badge/Tag */}
         <div className="mb-4 rounded-full bg-green-50 px-4 py-1 text-sm font-semibold text-green-600 ring-1 ring-inset ring-blue-700/10">

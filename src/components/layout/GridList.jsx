@@ -21,9 +21,17 @@ const GridList = ({ title, sub, className }) => {
   ];
 
 return (
-    <div className={`p-6 ${className}`}>
-      <h2 className="text-2xl font-bold text-gray-800 mb-1">{title}</h2>
-      <p className="text-sm text-gray-500 mb-6">{sub}</p>
+    <div className={`p-6 max-w-7xl mx-auto ${className}`}>
+      {/* Centered Heading Section */}
+      <div className="text-center mb-10">
+        <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight mb-3">
+          {title}
+        </h2>
+        <div className="w-20 h-1 bg-green-500 mx-auto mb-4 rounded-full"></div>
+        <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto">
+          {sub}
+        </p>
+      </div>
 
       <ul className="grid grid-cols-2 md:grid-cols-4 gap-6">
         {dummy_data.map((item, index) => (
@@ -32,12 +40,11 @@ return (
             className="group relative p-6 border border-gray-100 rounded-2xl bg-white 
                        transition-all duration-300 ease-in-out cursor-pointer 
                        flex flex-col items-center justify-center text-center
-                       /* The Glow Logic */
-                       hover:border-blue-400 
-                       hover:shadow-[0_0_20px_rgba(59,130,246,0.2)] 
+                       hover:border-green-400 
+                       hover:shadow-[0_10px_25px_-5px_rgba(59,130,246,0.2)] 
                        hover:-translate-y-1"
           >
-            <div className="w-16 h-16 mb-4 flex items-center justify-center bg-blue-50 rounded-full group-hover:bg-blue-100 transition-colors">
+            <div className="w-16 h-16 mb-4 flex items-center justify-center bg-green-50 rounded-full group-hover:bg-green-100 transition-colors">
               <img 
                 src={item.img} 
                 alt={item.title} 
@@ -45,7 +52,7 @@ return (
               />
             </div>
 
-            <span className="text-sm font-semibold text-gray-700 group-hover:text-blue-600 transition-colors">
+            <span className="text-sm font-semibold text-gray-700 group-hover:text-green-600 transition-colors">
               {item.title}
             </span>
           </li>
@@ -54,5 +61,4 @@ return (
     </div>
   );
 };
-
 export default GridList;

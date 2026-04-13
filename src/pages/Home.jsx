@@ -8,9 +8,7 @@ const Home = () => {
     <>
       <Hero />
       <GridList
-        title="Search by service type"
         sub="Common diagnostic and treatment services"
-        
         className="services"
       />
 

@@ -2,6 +2,7 @@ import React from "react";
 import Footer from "../components/layout/Footer";
 import GridList from "../components/layout/GridList";
 import Hero from "../components/Hero_Layout/Hero";
+import StepsStack from "@/components/layout/StepsStack";
 
 const Home = () => {
   return (
@@ -29,13 +30,7 @@ const Home = () => {
 
       <div className="divider"></div>
 
-      <div className="section">
-        <p>How MediNear works</p>
-        <p>Three steps to the right care</p>
-        <div className="steps">
-          step card - 1 | step card - 2 | step card - 3
-        </div>
-      </div>
+      <StepsStack />
 
       <div className="divider"></div>
 

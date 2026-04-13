@@ -1,6 +1,5 @@
 import React from "react";
 import Footer from "../components/layout/Footer";
-import Searchbar from "../components/search/Searchbar";
 import GridList from "../components/layout/GridList";
 import Hero from "../components/Hero_Layout/Hero";
 

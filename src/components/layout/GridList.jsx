@@ -22,7 +22,6 @@ const GridList = ({ title, sub, className }) => {
 
 return (
     <div className={`p-6 max-w-7xl mx-auto ${className}`}>
-      {/* Centered Heading Section */}
       <div className="text-center mb-10">
         <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight mb-3">
           {title}
@@ -44,7 +43,7 @@ return (
                        hover:shadow-[0_10px_25px_-5px_rgba(59,130,246,0.2)] 
                        hover:-translate-y-1"
           >
-            <div className="w-16 h-16 mb-4 flex items-center justify-center bg-green-50 rounded-full group-hover:bg-green-100 transition-colors">
+            <div className="w-16 h-16 mb-4 flex items-center justify-center bg-green-100 rounded-full group-hover:bg-green-200 transition-colors">
               <img 
                 src={item.img} 
                 alt={item.title} 

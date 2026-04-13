@@ -2,8 +2,12 @@ import React from "react";
 import stethoscopeImg from "./stethoscope.png";
 import Searchbar from "../search/Searchbar";
 import Loc from "./Loc";
+import BlurText from "../BlurText";
 
 const Hero = () => {
+  const handleAnimationComplete = () => {
+  console.log('Animation completed!');
+};
   return (
     <div className="flex min-h-[60vh] flex-col items-center justify-center px-4 pt-5 text-center">
       {/* Badge/Tag */}
@@ -16,9 +20,24 @@ const Hero = () => {
         {/* Text Content: Left Side */}
         <div className="text-left">
           <h2 className="max-w-2xl text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-            Medical services & doctors near{" "}
-            <span className="text-[#0F6E56]">Rajshahi</span>
-          </h2>
+  <BlurText
+    text="Find the best Medical services & doctors near"
+    delay={150}
+    animateBy="words"
+    direction="top"
+    onAnimationComplete={handleAnimationComplete}
+    className="inline" // Keeps it inline to sit next to the span
+  />
+  {" "}
+  <span className="text-[#0F6E56]">
+    <BlurText
+      text="Rajshahi"
+      delay={800} // Starts slightly later for a staggered effect
+      animateBy="words"
+      direction="top"
+    />
+  </span>
+</h2>
 
           {/* Subtext */}
           <div className="mt-6 max-w-xl">

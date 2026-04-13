@@ -2,7 +2,7 @@ import React from "react";
 import Footer from "../components/layout/Footer";
 import Searchbar from "../components/search/Searchbar";
 import GridList from "../components/layout/GridList";
-import Hero from "../components/Home_Layout/Hero";
+import Hero from "../components/Hero_Layout/Hero";
 
 const Home = () => {
   return (
@@ -11,22 +11,13 @@ const Home = () => {
       <GridList
         title="Search by service type"
         sub="Common diagnostic and treatment services"
-        dummy_data={[
-          "Blood test",
-          "Xray",
-          "MRI/CT Scan",
-          "Ultrasound",
-          "ECG",
-          "Consultant",
-          "Pathology",
-          "View all",
-        ]}
+        
         className="services"
       />
 
       <div className="divider"></div>
 
-      <GridList
+      {/* <GridList
         title="Find doctors by specialization"
         sub="Browse specialists available near you"
         dummy_data={[
@@ -37,7 +28,7 @@ const Home = () => {
           "+More specialists",
         ]}
         className="specialists"
-      />
+      /> */}
 
       <div className="divider"></div>
 

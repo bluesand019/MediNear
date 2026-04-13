@@ -12,7 +12,6 @@ const Hero = () => {
       </div>
 
       {/* Main Heading */}
-      {/* Parent Container: Centers the entire row on the screen */}
       <div className="flex w-full items-center justify-center gap-5 bg-[#cfe4d8]/30 my-5 pt-5 rounded-md">
         {/* Text Content: Left Side */}
         <div className="text-left">
@@ -30,7 +29,7 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Pill Image: Right Side */}
+        {/* stethoscope Image: Right Side */}
         <img
           className="w-100 h-100 object-contain hidden md:block animate-pulse"
           src={stethoscopeImg}

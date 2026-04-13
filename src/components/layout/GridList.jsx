@@ -56,7 +56,7 @@ const GridList = ({ sub, className }) => {
                        hover:shadow-[0_10px_25px_-5px_rgba(59,130,246,0.2)] 
                        hover:-translate-y-1"
           >
-            <div className="w-16 h-16 mb-4 flex items-center justify-center bg-green-100 rounded-full group-hover:bg-green-200 transition-colors">
+            <div className="w-16 h-16 mb-4 flex items-center justify-center bg-gray-100 rounded-full group-hover:bg-green-200 transition-colors">
               <img
                 src={item.img}
                 alt={item.title}

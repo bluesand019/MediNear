@@ -3,6 +3,7 @@ import Footer from "../components/layout/Footer";
 import GridList from "../components/layout/GridList";
 import Hero from "../components/Hero_Layout/Hero";
 import StepsStack from "@/components/layout/StepsStack";
+import StatsSection from "@/components/layout/Stats";
 
 const Home = () => {
   return (
@@ -34,10 +35,7 @@ const Home = () => {
 
       <div className="divider"></div>
 
-      <div className="section">
-        <p>Trusted across Rajshahi</p>
-        <div className="stats-row">Stats</div>
-      </div>
+     <StatsSection />
 
       <div className="divider"></div>
       <div className="banner">

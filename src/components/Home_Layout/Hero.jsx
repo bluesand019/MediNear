@@ -1,6 +1,7 @@
 import React from "react";
-import pillImg from "./pills.png";
+import stethoscopeImg from "./stethoscope.png";
 import Searchbar from "../search/Searchbar";
+import Loc from "./Loc";
 
 const Hero = () => {
   return (
@@ -32,7 +33,7 @@ const Hero = () => {
         {/* Pill Image: Right Side */}
         <img
           className="w-100 h-100 object-contain hidden md:block animate-pulse"
-          src={pillImg}
+          src={stethoscopeImg}
           alt="3d pill"
         />
       </div>
@@ -72,7 +73,7 @@ const Hero = () => {
           />
         </svg>
         <span>
-          Your location: <strong>Rajshahi, BD</strong>
+          Your location: <strong><Loc /></strong>
         </span>
         <button className="font-medium text-green-600 hover:text-green-500 cursor-pointer underline-offset-4 hover:underline">
           Change city

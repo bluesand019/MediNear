@@ -4,28 +4,7 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import StatCard from "./StatCard";
 
-function useCountUp(target, duration = 2000, startOnMount = false) {
-  const [count, setCount] = useState(0);
-  const [started, setStarted] = useState(startOnMount);
-  const rafRef = useRef(null);
 
-  useEffect(() => {
-    if (!started) return;
-    const startTime = performance.now();
-    const animate = (now) => {
-      const elapsed = now - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.floor(eased * target));
-      if (progress < 1) rafRef.current = requestAnimationFrame(animate);
-      else setCount(target);
-    };
-    rafRef.current = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(rafRef.current);
-  }, [started, target, duration]);
-
-  return { count, start: () => setStarted(true) };
-}
 
 
 export default function StatsSection() {
@@ -64,24 +43,28 @@ export default function StatsSection() {
             suffix="+"
             label="Hospitals & centers"
             duration={1600}
+            variant="emerald"
           />
           <StatCard
             value={340}
             suffix="+"
             label="Verified doctors"
             duration={1800}
+            variant="teal"
           />
           <StatCard
             value={4.7}
             suffix="★"
             label="Avg. platform rating"
             duration={1400}
+            variant="green"
           />
           <StatCard
             value={8}
             suffix="k+"
             label="Bookings this month"
             duration={2000}
+            variant="lime"
           />
         </div>
       </div>

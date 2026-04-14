@@ -83,11 +83,11 @@ const ThreeDCarousel = () => {
         </AnimatePresence>
       </div>
 
-      {/* Controls: Reduced mt-12 to mt-8 */}
+      {/* Controls */}
       <div className="flex items-center gap-6 mt-8">
         <button
           onClick={prev}
-          className="p-2.5 rounded-xl bg-white text-emerald-600 border border-emerald-100 shadow-sm hover:bg-emerald-600 hover:text-white transition-all active:scale-90"
+          className="p-2.5 cursor-pointer rounded-xl bg-white text-emerald-600 border border-emerald-100 shadow-sm hover:bg-emerald-600 hover:text-white transition-all active:scale-90"
         >
           <ChevronLeft size={20} />
         </button>
@@ -106,7 +106,7 @@ const ThreeDCarousel = () => {
 
         <button
           onClick={next}
-          className="p-2.5 rounded-xl bg-white text-emerald-600 border border-emerald-100 shadow-sm hover:bg-emerald-600 hover:text-white transition-all active:scale-90"
+          className="p-2.5 cursor-pointer rounded-xl bg-white text-emerald-600 border border-emerald-100 shadow-sm hover:bg-emerald-600 hover:text-white transition-all active:scale-90"
         >
           <ChevronRight size={20} />
         </button>

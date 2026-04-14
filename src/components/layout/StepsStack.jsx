@@ -1,139 +1,104 @@
-import React, { useState } from "react";
-
-import { motion, AnimatePresence } from "framer-motion";
-
-import { GravityStarsBackground } from "../animate-ui/components/backgrounds/gravity-stars";
-
-import {
-  Search,
-  MapPin,
-  CalendarCheck,
-  ChevronRight,
-  ChevronLeft,
-} from "lucide-react";
+import React from "react";
+import { Search, MapPin, CalendarCheck, ChevronRight } from "lucide-react";
+import { motion } from "framer-motion";
 
 const steps = [
   {
     id: 1,
-
     title: "Search a service",
-
     desc: "Type what you need - blood test, MRI, or a cardiologist and your location is detected automatically.",
-
-    icon: <Search className="w-6 h-6 text-emerald-600" />,
+    icon: <Search className="w-10 h-10 text-emerald-600" />,
   },
-
   {
     id: 2,
-
     title: "Compare options",
-
     desc: "Results are sorted by distance, rating, and price. See available time slots without calling.",
-
-    icon: <MapPin className="w-6 h-6 text-emerald-600" />,
+    icon: <MapPin className="w-10 h-10 text-emerald-600" />,
   },
-
   {
     id: 3,
-
     title: "Book instantly",
-
     desc: "Select a time slot and confirm your booking in seconds. Get a digital reminder.",
-
-    icon: <CalendarCheck className="w-6 h-6 text-emerald-600" />,
+    icon: <CalendarCheck className="w-10 h-10 text-emerald-600" />,
   },
 ];
 
-const ThreeDCarousel = () => {
-  const [index, setIndex] = useState(0);
+const cardsVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut",
+      staggerChildren: 0.15,
+    },
+  },
+};
 
-  const next = () => setIndex((prev) => (prev + 1) % steps.length);
+const cardItemVariants = {
+  hidden: { opacity: 0, scale: 0.95 },
+  visible: { opacity: 1, scale: 1 },
+};
 
-  const prev = () =>
-    setIndex((prev) => (prev - 1 + steps.length) % steps.length);
-
+const HorizontalSteps = () => {
   return (
-    <div className="my-6 mx-4 rounded-md bg-[#e7f5e4] py-12 flex flex-col items-center overflow-hidden min-h-[500px]">
-      {/* Header */}
-
-      <div className="text-center mb-8 px-6">
-        <h2 className="text-emerald-900 text-3xl font-black tracking-tight mb-2">
-          Three steps to the{" "}
-          <span className="text-emerald-600">right care</span>
+    <div className="my-12 px-4 md:px-8 py-16 bg-[#F8FFF7] rounded-3xl">
+      {/* Header with improved styling */}
+      <div className="text-center mb-16 max-w-2xl mx-auto">
+        <h2 className="text-emerald-950 text-4xl md:text-5xl font-extrabold tracking-tighter mb-4 leading-tight">
+          Three steps to the <span className="text-emerald-600">right care</span>
         </h2>
+        <p className="text-lg text-emerald-800/80">
+          Booking healthcare has never been easier. Follow our simple process to
+          connect with top medical professionals.
+        </p>
       </div>
 
-      {/* 3D Perspective Container */}
-
-      <div
-        className="relative w-full max-w-[320px] h-[320px]"
-        style={{ perspective: "1000px" }}
+      {/* Cards Container - Horizontal on medium+ screens, stacked on small */}
+      <motion.div
+        className="grid grid-cols-1 md:grid-cols-3 gap-8"
+        variants={cardsVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }} // Animate when 20% visible
       >
-        <AnimatePresence mode="popLayout">
+        {steps.map((step, index) => (
           <motion.div
-            key={index}
-            initial={{ opacity: 0, rotateY: 30, z: -100, x: 80 }}
-            animate={{ opacity: 1, rotateY: 0, z: 0, x: 0 }}
-            exit={{ opacity: 0, rotateY: -30, z: -100, x: -80 }}
-            transition={{ duration: 0.6, type: "spring", bounce: 0.3 }}
-            className="absolute inset-0"
+            key={step.id}
+            variants={cardItemVariants}
+            whileHover={{ y: -8, transition: { duration: 0.2 } }}
+            className="bg-white p-8 rounded-3xl border border-emerald-100 shadow-sm flex flex-col items-center text-center transform transition-transform duration-300"
           >
-            {/* The Glass Card */}
+            {/* Step Icon with a softer background */}
+            <div className="w-20 h-20 bg-emerald-50 rounded-full flex items-center justify-center mb-6 ring-8 ring-emerald-50/50">
+              {step.icon}
+            </div>
 
-            <div className="w-full h-full bg-[#b0dea4] rounded-[2rem] p-6 shadow-[0_0_10px_rgba(0,0,0,0.1)] border border-emerald-100/50 flex flex-col items-center text-center justify-center">
-              <div className="w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center mb-4 ring-4 ring-emerald-50/50">
-                {steps[index].icon}
-              </div>
+            {/* Step Number Label */}
+            <span className="inline-block px-3 py-1 rounded-full bg-emerald-100 text-emerald-900 font-bold text-xs tracking-wider uppercase mb-3">
+              Step 0{step.id}
+            </span>
 
-              <div className="space-y-2">
-                <span className="inline-block px-2 py-0.5 rounded-full bg-[#C5D3E8] text-black-100 font-bold text-[10px] tracking-widest uppercase shadow-sm">
-                  Step 0{steps[index].id}
-                </span>
+            {/* Step Title - More legible color */}
+            <h3 className="text-emerald-950 text-2xl font-bold mb-4 tracking-tight">
+              {step.title}
+            </h3>
 
-                <h3 className="text-white text-[30px] font-extrabold text-slate-800 text-shadow-lg">
-                  {steps[index].title}
-                </h3>
+            {/* Step Description - Cleaner, no italics/bold overkill */}
+            <p className="text-slate-600 leading-relaxed text-base flex-grow">
+              {step.desc}
+            </p>
 
-                <p className="text-slate-600 leading-snug text-sm italic font-bold">
-                  {steps[index].desc}
-                </p>
-              </div>
+            {/* Optional "Learn More" element for interactivity */}
+            <div className="mt-6 flex items-center text-emerald-600 font-medium group cursor-pointer text-sm">
+                How it works <ChevronRight size={18} className="ml-1 group-hover:translate-x-1 transition-transform"/>
             </div>
           </motion.div>
-        </AnimatePresence>
-      </div>
-
-      {/* Controls */}
-
-      <div className="flex items-center gap-6 mt-8">
-        <button
-          onClick={prev}
-          className="p-2.5 cursor-pointer rounded-xl bg-white text-emerald-600 border border-emerald-100 shadow-sm hover:bg-emerald-600 hover:text-white transition-all active:scale-90"
-        >
-          <ChevronLeft size={20} />
-        </button>
-
-        <div className="flex gap-2">
-          {steps.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setIndex(i)}
-              className={`h-1.5 rounded-full transition-all duration-500 ${
-                i === index ? "w-8 bg-emerald-600" : "w-1.5 bg-emerald-200"
-              }`}
-            />
-          ))}
-        </div>
-
-        <button
-          onClick={next}
-          className="p-2.5 cursor-pointer rounded-xl bg-white text-emerald-600 border border-emerald-100 shadow-sm hover:bg-emerald-600 hover:text-white transition-all active:scale-90"
-        >
-          <ChevronRight size={20} />
-        </button>
-      </div>
+        ))}
+      </motion.div>
     </div>
   );
 };
 
-export default ThreeDCarousel;
+export default HorizontalSteps;

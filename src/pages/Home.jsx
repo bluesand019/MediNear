@@ -14,8 +14,6 @@ const Home = () => {
         className="services"
       />
 
-      <div className="divider"></div>
-
       {/* <GridList
         title="Find doctors by specialization"
         sub="Browse specialists available near you"
@@ -29,15 +27,10 @@ const Home = () => {
         className="specialists"
       /> */}
 
-      <div className="divider"></div>
 
       <StepsStack />
 
-      <div className="divider"></div>
-
      <StatsSection />
-
-      <div className="divider"></div>
       <div className="banner">
         <strong>Are you a hospital or clinic?</strong>
         <p>

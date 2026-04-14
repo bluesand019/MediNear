@@ -28,7 +28,6 @@ function StatCard({ value, suffix, label, prefix = "", duration = 2000, variant 
   const { count, start } = useCountUp(value, duration);
   const hasStarted = useRef(false);
 
-  // Color variants mapping
   const variants = {
     emerald: "bg-[#1F6F5F] border-emerald-100 text-white dark:bg-emerald-950/20 dark:border-emerald-900/50 dark:text-emerald-400",
     teal: "bg-[#2FA084] border-teal-100 text-white dark:bg-teal-950/20 dark:border-teal-900/50 dark:text-teal-400",

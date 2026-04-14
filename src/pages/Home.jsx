@@ -27,10 +27,8 @@ const Home = () => {
         className="specialists"
       /> */}
 
-
       <StepsStack />
-
-     <StatsSection />
+      <StatsSection />
       <div className="banner">
         <strong>Are you a hospital or clinic?</strong>
         <p>

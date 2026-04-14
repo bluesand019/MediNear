@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { HighlightText } from "../animate-ui/primitives/texts/highlight";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
+import StatCard from "./StatCard";
 
 function useCountUp(target, duration = 2000, startOnMount = false) {
   const [count, setCount] = useState(0);
@@ -26,39 +27,6 @@ function useCountUp(target, duration = 2000, startOnMount = false) {
   return { count, start: () => setStarted(true) };
 }
 
-function StatCard({ value, suffix, label, prefix = "", duration = 2000 }) {
-  const cardRef = useRef(null);
-  const { count, start } = useCountUp(value, duration);
-  const hasStarted = useRef(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasStarted.current) {
-          hasStarted.current = true;
-          start();
-        }
-      },
-      { threshold: 0.4 },
-    );
-    if (cardRef.current) observer.observe(cardRef.current);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div
-      ref={cardRef}
-      className="flex flex-col items-center justify-center bg-white rounded-2xl border border-gray-100 px-6 py-8 text-center"
-    >
-      <span className="text-4xl font-semibold text-gray-900 tabular-nums tracking-tight">
-        {prefix}
-        {count.toLocaleString()}
-        {suffix}
-      </span>
-      <span className="mt-2 text-sm text-gray-400 font-normal">{label}</span>
-    </div>
-  );
-}
 
 export default function StatsSection() {
   const containerRef = useRef(null);
@@ -74,7 +42,7 @@ export default function StatsSection() {
             <motion.span
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
-              viewport={{ once: true, margin: "-100px" }} // Triggers 100px before it hits the center
+              viewport={{ once: true, margin: "-100px" }}
             >
               {isInView && (
                 <HighlightText

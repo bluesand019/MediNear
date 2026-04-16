@@ -29,15 +29,6 @@ const Home = () => {
 
       <StepsStack />
       <StatsSection />
-      <div className="banner">
-        <strong>Are you a hospital or clinic?</strong>
-        <p>
-          List your services and doctors on MediNear to reach more patients in
-          your area.
-        </p>
-        <button>Join as a provider</button>
-      </div>
-
       <Footer />
     </>
   );

@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-
+import HospitalSingle from "../pages/HospitalSingle";
 import Home from "../pages/Home";
 import DoctorSearch from "../pages/DoctorSearch";
 import DoctorDetail from "../pages/DoctorDetail";
@@ -17,7 +17,7 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "doctor/:id", element: <DoctorDetail /> },
-
+      { path: "hospital/:id", element: <HospitalSingle /> },
       { path: "doctor-search", element: <DoctorSearch /> },
       { path: "hospital-detail", element: <HospitalDetail /> },
       { path: "service-search", element: <ServiceSearch /> },

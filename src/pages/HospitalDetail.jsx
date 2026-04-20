@@ -266,9 +266,12 @@ function HospitalCard({ hospital }) {
           >
             Call
           </a>
-          <button className="mt-2 text-xs px-3 py-1.5 rounded-lg bg-teal-600 text-white font-medium hover:bg-teal-700 active:scale-95 transition-all">
+          <Link
+            to={`/hospital/${hospital.id}`}
+            className="mt-2 text-xs px-3 py-1.5 rounded-lg bg-teal-600 text-white font-medium hover:bg-teal-700 active:scale-95 transition-all no-underline"
+          >
             View details
-          </button>
+          </Link>
         </div>
       </div>
 

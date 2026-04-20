@@ -128,11 +128,11 @@ const Personal = ({ setStage }) => {
 
         {/* Submit */}
         <button
-          type="submit"
-          className="mt-1 w-full rounded-lg bg-teal-600 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700 active:scale-95"
-        >
-          Continue →
-        </button>
+  type="submit" // This triggers submitHandler which calls Stepper's next step
+  className="mt-1 w-full rounded-lg bg-teal-600 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700 active:scale-95 shadow-md shadow-teal-100"
+>
+  Continue →
+</button>
 
       </form>
     </div>

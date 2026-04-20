@@ -240,7 +240,7 @@ const SERVICES = [
     location: "Rajshahi",
   },
 
-  // Example Dhaka entry (so the city filter visibly works)
+  // Add one Dhaka provider so the city filter is obviously working
   {
     id: 7,
     hospital: "Dhaka Diagnostic Hub",
@@ -384,7 +384,7 @@ const CATEGORY_ICONS = {
   ),
 };
 
-// ─── Sub-components ───────────────────────────────────────────────────────────
+// ─── Sub-components ──────────────────────────────────────────────────────────
 
 function Toggle({ checked, onChange }) {
   return (
@@ -560,7 +560,7 @@ function HospitalCard({ hospital, activeCategory }) {
             <p className="text-xs text-gray-300 mt-1">{hospital.address}</p>
           </div>
 
-          {/* Price */}
+          {/* Price + CTA */}
           <div className="text-right flex-shrink-0">
             {lowestPrice !== null && (
               <>
@@ -639,7 +639,7 @@ function HospitalCard({ hospital, activeCategory }) {
 
 export default function ServicesPage() {
   const [query, setQuery] = useState("");
-  const [location, setLocation] = useState("Rajshahi"); // or "All"
+  const [location, setLocation] = useState("Rajshahi"); // change to "All" if you want
   const [activeCategory, setActiveCategory] = useState("All");
   const [sortBy, setSortBy] = useState("distance");
   const [maxPrice, setMaxPrice] = useState(6000);
@@ -654,7 +654,7 @@ export default function ServicesPage() {
 
   const results = useMemo(() => {
     let list = SERVICES.filter((h) => {
-      // Location filter (NEW)
+      // Location filter
       if (location !== "All" && h.location !== location) return false;
 
       if (filters.openNow && !h.openNow) return false;
@@ -707,7 +707,6 @@ export default function ServicesPage() {
     <div className="min-h-screen bg-gray-50">
       {/* ── Top bar ── */}
       <div className="bg-white border-b border-gray-100 px-4 py-3 flex items-center gap-3">
-        {/* Home link FIXED */}
         <Link
           to="/"
           className="flex items-center gap-1.5 text-xs text-gray-400 border border-gray-100 rounded-lg px-3 py-2 hover:bg-gray-50 transition flex-shrink-0 no-underline"
@@ -755,7 +754,6 @@ export default function ServicesPage() {
           )}
         </div>
 
-        {/* Location select FIXED */}
         <div className="flex items-center gap-1.5 text-xs text-teal-700 bg-teal-50 border border-teal-200 rounded-full px-3 py-1.5 flex-shrink-0">
           <svg
             width="11"
@@ -768,6 +766,7 @@ export default function ServicesPage() {
             <path d="M8 1.5C5.5 1.5 3.5 3.5 3.5 6C3.5 9.5 8 14.5 8 14.5C8 14.5 12.5 9.5 12.5 6C12.5 3.5 10.5 1.5 8 1.5Z" />
             <circle cx="8" cy="6" r="1.5" />
           </svg>
+
           <select
             value={location}
             onChange={(e) => setLocation(e.target.value)}
@@ -847,7 +846,9 @@ export default function ServicesPage() {
                     <span className="text-xs text-gray-500">{label}</span>
                     <Toggle
                       checked={filters[key]}
-                      onChange={() => toggleFilter(key)}
+                      onChange={() =>
+                        setFilters((p) => ({ ...p, [key]: !p[key] }))
+                      }
                     />
                   </div>
                 ))}
@@ -879,7 +880,7 @@ export default function ServicesPage() {
               </div>
             </div>
 
-            {/* Category list */}
+            {/* Category list (secondary nav) */}
             <div>
               <p className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-2">
                 Category

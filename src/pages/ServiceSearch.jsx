@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { Link } from "react-router-dom";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -14,6 +15,8 @@ const SERVICE_CATEGORIES = [
   "Vaccination",
 ];
 
+const LOCATIONS = ["All", "Rajshahi", "Dhaka"];
+
 const SERVICES = [
   {
     id: 1,
@@ -27,13 +30,24 @@ const SERVICES = [
     openNow: true,
     verified: true,
     services: [
-      { name: "Complete blood count (CBC)", category: "Blood test", price: 250, available: true },
-      { name: "Blood glucose (fasting)", category: "Blood test", price: 120, available: true },
+      {
+        name: "Complete blood count (CBC)",
+        category: "Blood test",
+        price: 250,
+        available: true,
+      },
+      {
+        name: "Blood glucose (fasting)",
+        category: "Blood test",
+        price: 120,
+        available: true,
+      },
       { name: "Chest X-ray", category: "X-ray", price: 300, available: true },
       { name: "ECG (12-lead)", category: "ECG", price: 350, available: false },
     ],
     slots: ["8:00 AM", "10:30 AM", "2:00 PM"],
     address: "Rajshahi Sadar, Rajshahi",
+    location: "Rajshahi",
   },
   {
     id: 2,
@@ -47,13 +61,34 @@ const SERVICES = [
     openNow: true,
     verified: true,
     services: [
-      { name: "MRI brain (without contrast)", category: "MRI / CT scan", price: 4500, available: true },
-      { name: "CT scan (abdomen)", category: "MRI / CT scan", price: 3800, available: true },
-      { name: "Ultrasound (abdomen)", category: "Ultrasound", price: 900, available: true },
-      { name: "Lipid profile", category: "Blood test", price: 450, available: true },
+      {
+        name: "MRI brain (without contrast)",
+        category: "MRI / CT scan",
+        price: 4500,
+        available: true,
+      },
+      {
+        name: "CT scan (abdomen)",
+        category: "MRI / CT scan",
+        price: 3800,
+        available: true,
+      },
+      {
+        name: "Ultrasound (abdomen)",
+        category: "Ultrasound",
+        price: 900,
+        available: true,
+      },
+      {
+        name: "Lipid profile",
+        category: "Blood test",
+        price: 450,
+        available: true,
+      },
     ],
     slots: ["9:00 AM", "11:00 AM", "3:30 PM"],
     address: "Shaheb Bazar, Rajshahi",
+    location: "Rajshahi",
   },
   {
     id: 3,
@@ -67,13 +102,29 @@ const SERVICES = [
     openNow: true,
     verified: true,
     services: [
-      { name: "Thyroid function test (TFT)", category: "Blood test", price: 700, available: true },
+      {
+        name: "Thyroid function test (TFT)",
+        category: "Blood test",
+        price: 700,
+        available: true,
+      },
       { name: "HbA1c", category: "Blood test", price: 550, available: true },
-      { name: "X-ray (lumbar spine)", category: "X-ray", price: 400, available: true },
-      { name: "Echocardiogram", category: "Ultrasound", price: 2200, available: false },
+      {
+        name: "X-ray (lumbar spine)",
+        category: "X-ray",
+        price: 400,
+        available: true,
+      },
+      {
+        name: "Echocardiogram",
+        category: "Ultrasound",
+        price: 2200,
+        available: false,
+      },
     ],
     slots: ["8:30 AM", "12:00 PM"],
     address: "Uposhohor, Rajshahi",
+    location: "Rajshahi",
   },
   {
     id: 4,
@@ -87,13 +138,34 @@ const SERVICES = [
     openNow: false,
     verified: true,
     services: [
-      { name: "Urine routine examination", category: "Pathology", price: 150, available: true },
-      { name: "Stool routine examination", category: "Pathology", price: 180, available: true },
-      { name: "Hepatitis B surface antigen", category: "Pathology", price: 600, available: true },
-      { name: "COVID-19 PCR test", category: "Pathology", price: 1200, available: false },
+      {
+        name: "Urine routine examination",
+        category: "Pathology",
+        price: 150,
+        available: true,
+      },
+      {
+        name: "Stool routine examination",
+        category: "Pathology",
+        price: 180,
+        available: true,
+      },
+      {
+        name: "Hepatitis B surface antigen",
+        category: "Pathology",
+        price: 600,
+        available: true,
+      },
+      {
+        name: "COVID-19 PCR test",
+        category: "Pathology",
+        price: 1200,
+        available: false,
+      },
     ],
     slots: [],
     address: "Kazla, Rajshahi",
+    location: "Rajshahi",
   },
   {
     id: 5,
@@ -107,13 +179,29 @@ const SERVICES = [
     openNow: true,
     verified: true,
     services: [
-      { name: "MRI knee (without contrast)", category: "MRI / CT scan", price: 5000, available: true },
-      { name: "CT scan (chest)", category: "MRI / CT scan", price: 4200, available: true },
-      { name: "Whole abdomen ultrasound", category: "Ultrasound", price: 1100, available: true },
+      {
+        name: "MRI knee (without contrast)",
+        category: "MRI / CT scan",
+        price: 5000,
+        available: true,
+      },
+      {
+        name: "CT scan (chest)",
+        category: "MRI / CT scan",
+        price: 4200,
+        available: true,
+      },
+      {
+        name: "Whole abdomen ultrasound",
+        category: "Ultrasound",
+        price: 1100,
+        available: true,
+      },
       { name: "Mammography", category: "X-ray", price: 1800, available: true },
     ],
     slots: ["9:30 AM", "1:00 PM", "4:00 PM"],
     address: "Binodpur, Rajshahi",
+    location: "Rajshahi",
   },
   {
     id: 6,
@@ -128,12 +216,55 @@ const SERVICES = [
     verified: false,
     services: [
       { name: "ECG (resting)", category: "ECG", price: 280, available: true },
-      { name: "Stress ECG (treadmill test)", category: "ECG", price: 1500, available: true },
-      { name: "Holter monitoring (24h)", category: "ECG", price: 3500, available: false },
-      { name: "Fasting blood sugar", category: "Blood test", price: 100, available: true },
+      {
+        name: "Stress ECG (treadmill test)",
+        category: "ECG",
+        price: 1500,
+        available: true,
+      },
+      {
+        name: "Holter monitoring (24h)",
+        category: "ECG",
+        price: 3500,
+        available: false,
+      },
+      {
+        name: "Fasting blood sugar",
+        category: "Blood test",
+        price: 100,
+        available: true,
+      },
     ],
     slots: ["10:00 AM", "2:30 PM"],
     address: "Motihar, Rajshahi",
+    location: "Rajshahi",
+  },
+
+  // Example Dhaka entry (so the city filter visibly works)
+  {
+    id: 7,
+    hospital: "Dhaka Diagnostic Hub",
+    initials: "DD",
+    color: "bg-indigo-50 text-indigo-800",
+    type: "Diagnostic center",
+    dist: 4.9,
+    rating: 4.6,
+    reviews: 160,
+    openNow: true,
+    verified: true,
+    services: [
+      { name: "CBC", category: "Blood test", price: 300, available: true },
+      { name: "Chest X-ray", category: "X-ray", price: 350, available: true },
+      {
+        name: "CT scan (head)",
+        category: "MRI / CT scan",
+        price: 4000,
+        available: true,
+      },
+    ],
+    slots: ["9:00 AM", "1:30 PM", "6:00 PM"],
+    address: "Mirpur, Dhaka",
+    location: "Dhaka",
   },
 ];
 
@@ -146,43 +277,109 @@ const SORT_OPTIONS = [
 
 const CATEGORY_ICONS = {
   "Blood test": (
-    <svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.4">
-      <path d="M6 2v7l-2 4h10l-2-4V2" /><path d="M6 2h6" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 18 18"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.4"
+    >
+      <path d="M6 2v7l-2 4h10l-2-4V2" />
+      <path d="M6 2h6" />
     </svg>
   ),
   "X-ray": (
-    <svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.4">
-      <rect x="3" y="2" width="12" height="14" rx="2" /><path d="M6 6h6M6 9h6M6 12h4" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 18 18"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.4"
+    >
+      <rect x="3" y="2" width="12" height="14" rx="2" />
+      <path d="M6 6h6M6 9h6M6 12h4" />
     </svg>
   ),
   "MRI / CT scan": (
-    <svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.4">
-      <ellipse cx="9" cy="9" rx="6" ry="4" /><path d="M3 9c0 3 2.7 5 6 5s6-2 6-5" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 18 18"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.4"
+    >
+      <ellipse cx="9" cy="9" rx="6" ry="4" />
+      <path d="M3 9c0 3 2.7 5 6 5s6-2 6-5" />
     </svg>
   ),
   Ultrasound: (
-    <svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.4">
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 18 18"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.4"
+    >
       <path d="M4 9 Q6 5 9 9 Q12 13 14 9" strokeLinecap="round" />
     </svg>
   ),
   ECG: (
-    <svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.4">
-      <path d="M2 9h3l2-4 3 8 2-4h4" strokeLinecap="round" strokeLinejoin="round" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 18 18"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.4"
+    >
+      <path
+        d="M2 9h3l2-4 3 8 2-4h4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   ),
   Pathology: (
-    <svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.4">
-      <circle cx="9" cy="10" r="4" /><path d="M9 6V3M7 3h4" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 18 18"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.4"
+    >
+      <circle cx="9" cy="10" r="4" />
+      <path d="M9 6V3M7 3h4" />
     </svg>
   ),
   Endoscopy: (
-    <svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.4">
-      <circle cx="9" cy="9" r="3" /><path d="M12 9h4M9 12v4" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 18 18"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.4"
+    >
+      <circle cx="9" cy="9" r="3" />
+      <path d="M12 9h4M9 12v4" />
     </svg>
   ),
   Vaccination: (
-    <svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.4">
-      <path d="M11 3l4 4-8 8-4-4 8-8z" /><path d="M14 6l1 1M3 15l2-2" />
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 18 18"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.4"
+    >
+      <path d="M11 3l4 4-8 8-4-4 8-8z" />
+      <path d="M14 6l1 1M3 15l2-2" />
     </svg>
   ),
 };
@@ -308,7 +505,15 @@ function HospitalCard({ hospital, activeCategory }) {
               </span>
               {hospital.verified && (
                 <span className="w-4 h-4 rounded-full bg-teal-500 flex items-center justify-center flex-shrink-0">
-                  <svg width="8" height="8" viewBox="0 0 10 10" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round">
+                  <svg
+                    width="8"
+                    height="8"
+                    viewBox="0 0 10 10"
+                    fill="none"
+                    stroke="white"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                  >
                     <path d="M2 5l2.5 2.5L8 3" />
                   </svg>
                 </span>
@@ -320,12 +525,21 @@ function HospitalCard({ hospital, activeCategory }) {
               {/* Rating */}
               <span className="flex items-center gap-1 text-xs">
                 <span className="text-amber-400">★</span>
-                <span className="font-medium text-gray-800">{hospital.rating}</span>
+                <span className="font-medium text-gray-800">
+                  {hospital.rating}
+                </span>
                 <span className="text-gray-300">({hospital.reviews})</span>
               </span>
               {/* Distance */}
               <span className="flex items-center gap-1 text-xs text-gray-400">
-                <svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <svg
+                  width="11"
+                  height="11"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                >
                   <path d="M8 1.5C5.5 1.5 3.5 3.5 3.5 6C3.5 9.5 8 14.5 8 14.5C8 14.5 12.5 9.5 12.5 6C12.5 3.5 10.5 1.5 8 1.5Z" />
                   <circle cx="8" cy="6" r="1.5" />
                 </svg>
@@ -346,7 +560,7 @@ function HospitalCard({ hospital, activeCategory }) {
             <p className="text-xs text-gray-300 mt-1">{hospital.address}</p>
           </div>
 
-          {/* Price + CTA */}
+          {/* Price */}
           <div className="text-right flex-shrink-0">
             {lowestPrice !== null && (
               <>
@@ -383,7 +597,14 @@ function HospitalCard({ hospital, activeCategory }) {
           </span>
           <div className="flex items-center gap-3">
             <button className="text-xs text-gray-400 hover:text-gray-600 flex items-center gap-1 transition">
-              <svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <svg
+                width="11"
+                height="11"
+                viewBox="0 0 16 16"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+              >
                 <path d="M8 1.5C5.5 1.5 3.5 3.5 3.5 6C3.5 9.5 8 14.5 8 14.5C8 14.5 12.5 9.5 12.5 6C12.5 3.5 10.5 1.5 8 1.5Z" />
                 <circle cx="8" cy="6" r="1.5" />
               </svg>
@@ -418,6 +639,7 @@ function HospitalCard({ hospital, activeCategory }) {
 
 export default function ServicesPage() {
   const [query, setQuery] = useState("");
+  const [location, setLocation] = useState("Rajshahi"); // or "All"
   const [activeCategory, setActiveCategory] = useState("All");
   const [sortBy, setSortBy] = useState("distance");
   const [maxPrice, setMaxPrice] = useState(6000);
@@ -432,6 +654,9 @@ export default function ServicesPage() {
 
   const results = useMemo(() => {
     let list = SERVICES.filter((h) => {
+      // Location filter (NEW)
+      if (location !== "All" && h.location !== location) return false;
+
       if (filters.openNow && !h.openNow) return false;
       if (filters.verifiedOnly && !h.verified) return false;
 
@@ -452,7 +677,7 @@ export default function ServicesPage() {
         query &&
         !h.hospital.toLowerCase().includes(query.toLowerCase()) &&
         !matchingServices.some((s) =>
-          s.name.toLowerCase().includes(query.toLowerCase())
+          s.name.toLowerCase().includes(query.toLowerCase()),
         )
       )
         return false;
@@ -476,22 +701,40 @@ export default function ServicesPage() {
       });
 
     return list;
-  }, [query, activeCategory, sortBy, maxPrice, filters]);
+  }, [query, location, activeCategory, sortBy, maxPrice, filters]);
 
   return (
     <div className="min-h-screen bg-gray-50">
-
       {/* ── Top bar ── */}
       <div className="bg-white border-b border-gray-100 px-4 py-3 flex items-center gap-3">
-        <button className="flex items-center gap-1.5 text-xs text-gray-400 border border-gray-100 rounded-lg px-3 py-2 hover:bg-gray-50 transition flex-shrink-0">
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5">
+        {/* Home link FIXED */}
+        <Link
+          to="/"
+          className="flex items-center gap-1.5 text-xs text-gray-400 border border-gray-100 rounded-lg px-3 py-2 hover:bg-gray-50 transition flex-shrink-0 no-underline"
+        >
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 12 12"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+          >
             <path d="M8 2L4 6l4 4" />
           </svg>
           Home
-        </button>
+        </Link>
 
         <div className="flex-1 flex items-center gap-2 border border-gray-200 rounded-xl px-3 py-2 bg-white focus-within:border-teal-400 focus-within:ring-2 focus-within:ring-teal-100 transition">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-gray-300 flex-shrink-0">
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 16 16"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            className="text-gray-300 flex-shrink-0"
+          >
             <circle cx="6.5" cy="6.5" r="4.5" />
             <path d="M10.5 10.5L14 14" strokeLinecap="round" />
           </svg>
@@ -503,18 +746,39 @@ export default function ServicesPage() {
             className="flex-1 text-sm text-gray-800 placeholder-gray-300 outline-none bg-transparent"
           />
           {query && (
-            <button onClick={() => setQuery("")} className="text-gray-300 hover:text-gray-500 text-xs">
+            <button
+              onClick={() => setQuery("")}
+              className="text-gray-300 hover:text-gray-500 text-xs"
+            >
               ✕
             </button>
           )}
         </div>
 
+        {/* Location select FIXED */}
         <div className="flex items-center gap-1.5 text-xs text-teal-700 bg-teal-50 border border-teal-200 rounded-full px-3 py-1.5 flex-shrink-0">
-          <svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <svg
+            width="11"
+            height="11"
+            viewBox="0 0 16 16"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+          >
             <path d="M8 1.5C5.5 1.5 3.5 3.5 3.5 6C3.5 9.5 8 14.5 8 14.5C8 14.5 12.5 9.5 12.5 6C12.5 3.5 10.5 1.5 8 1.5Z" />
             <circle cx="8" cy="6" r="1.5" />
           </svg>
-          Rajshahi
+          <select
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            className="bg-transparent outline-none text-teal-700 text-xs font-medium pr-1"
+          >
+            {LOCATIONS.map((loc) => (
+              <option key={loc} value={loc}>
+                {loc}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
 
@@ -531,7 +795,11 @@ export default function ServicesPage() {
             }`}
           >
             {cat !== "All" && (
-              <span className={activeCategory === cat ? "text-white" : "text-gray-400"}>
+              <span
+                className={
+                  activeCategory === cat ? "text-white" : "text-gray-400"
+                }
+              >
                 {CATEGORY_ICONS[cat]}
               </span>
             )}
@@ -542,7 +810,6 @@ export default function ServicesPage() {
 
       {/* ── Body ── */}
       <div className="max-w-6xl mx-auto px-4 py-5 flex gap-5">
-
         {/* ── Sidebar ── */}
         <aside className="w-56 flex-shrink-0 self-start">
           <div className="bg-white border border-gray-100 rounded-2xl p-4">
@@ -550,7 +817,11 @@ export default function ServicesPage() {
               <span className="text-sm font-medium text-gray-900">Filters</span>
               <button
                 onClick={() => {
-                  setFilters({ openNow: false, verifiedOnly: false, availableOnly: false });
+                  setFilters({
+                    openNow: false,
+                    verifiedOnly: false,
+                    availableOnly: false,
+                  });
                   setMaxPrice(6000);
                   setActiveCategory("All");
                   setQuery("");
@@ -608,7 +879,7 @@ export default function ServicesPage() {
               </div>
             </div>
 
-            {/* Category list (secondary nav) */}
+            {/* Category list */}
             <div>
               <p className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-2">
                 Category
@@ -625,7 +896,13 @@ export default function ServicesPage() {
                     }`}
                   >
                     {cat !== "All" && (
-                      <span className={activeCategory === cat ? "text-teal-500" : "text-gray-300"}>
+                      <span
+                        className={
+                          activeCategory === cat
+                            ? "text-teal-500"
+                            : "text-gray-300"
+                        }
+                      >
                         {CATEGORY_ICONS[cat]}
                       </span>
                     )}
@@ -643,12 +920,18 @@ export default function ServicesPage() {
           <div className="flex items-center justify-between mb-4">
             <div>
               <p className="text-sm text-gray-500">
-                <span className="font-medium text-gray-900">{results.length}</span>{" "}
-                {activeCategory === "All" ? "providers" : `${activeCategory} providers`} near Rajshahi
+                <span className="font-medium text-gray-900">
+                  {results.length}
+                </span>{" "}
+                {activeCategory === "All"
+                  ? "providers"
+                  : `${activeCategory} providers`}{" "}
+                {location === "All" ? "" : `near ${location}`}
               </p>
               {activeCategory !== "All" && (
                 <p className="text-xs text-gray-400 mt-0.5">
-                  Showing centers that offer {activeCategory.toLowerCase()} services
+                  Showing centers that offer {activeCategory.toLowerCase()}{" "}
+                  services
                 </p>
               )}
             </div>
@@ -660,7 +943,9 @@ export default function ServicesPage() {
                 className="text-sm border border-gray-200 rounded-lg px-2 py-1.5 text-gray-700 outline-none focus:border-teal-400 transition"
               >
                 {SORT_OPTIONS.map((o) => (
-                  <option key={o.value} value={o.value}>{o.label}</option>
+                  <option key={o.value} value={o.value}>
+                    {o.label}
+                  </option>
                 ))}
               </select>
             </div>
@@ -680,14 +965,23 @@ export default function ServicesPage() {
           ) : (
             <div className="bg-white border border-gray-100 rounded-2xl p-14 text-center">
               <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-3">
-                <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="#9ca3af" strokeWidth="1.5">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  stroke="#9ca3af"
+                  strokeWidth="1.5"
+                >
                   <circle cx="6.5" cy="6.5" r="4.5" />
                   <path d="M10.5 10.5L14 14" strokeLinecap="round" />
                 </svg>
               </div>
-              <p className="text-sm text-gray-400">No providers match your filters.</p>
+              <p className="text-sm text-gray-400">
+                No providers match your filters.
+              </p>
               <p className="text-xs text-gray-300 mt-1">
-                Try changing the category or adjusting the price range.
+                Try changing the category, city, or adjusting the price range.
               </p>
             </div>
           )}

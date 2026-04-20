@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { Link } from "react-router-dom";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -18,6 +19,7 @@ const DOCTORS = [
     online: true,
     female: true,
     hospital: "Rajshahi Medical College Hospital",
+    location: "Rajshahi",
     slots: ["10:00 AM", "11:30 AM", "3:00 PM"],
   },
   {
@@ -35,6 +37,7 @@ const DOCTORS = [
     online: false,
     female: false,
     hospital: "Popular Diagnostic Centre",
+    location: "Rajshahi",
     slots: ["9:30 AM", "2:00 PM"],
   },
   {
@@ -52,6 +55,7 @@ const DOCTORS = [
     online: true,
     female: true,
     hospital: "Ibn Sina Hospital, Rajshahi",
+    location: "Rajshahi",
     slots: ["8:30 AM", "12:00 PM", "4:30 PM"],
   },
   {
@@ -69,6 +73,7 @@ const DOCTORS = [
     online: true,
     female: false,
     hospital: "Smilezone Dental Clinic",
+    location: "Rajshahi",
     slots: [],
   },
   {
@@ -86,6 +91,7 @@ const DOCTORS = [
     online: false,
     female: true,
     hospital: "Skin & Care Center",
+    location: "Rajshahi",
     slots: ["11:00 AM", "5:00 PM"],
   },
   {
@@ -103,6 +109,7 @@ const DOCTORS = [
     online: true,
     female: false,
     hospital: "Children Welfare Hospital",
+    location: "Rajshahi",
     slots: ["10:30 AM", "1:00 PM", "3:30 PM"],
   },
   {
@@ -120,6 +127,7 @@ const DOCTORS = [
     online: false,
     female: true,
     hospital: "Bone & Joint Hospital",
+    location: "Dhaka",
     slots: [],
   },
   {
@@ -137,6 +145,7 @@ const DOCTORS = [
     online: true,
     female: false,
     hospital: "Heart Foundation Hospital",
+    location: "Dhaka",
     slots: ["9:00 AM", "4:00 PM"],
   },
 ];
@@ -151,6 +160,8 @@ const SPECIALIZATIONS = [
   "Pediatrician",
   "Orthopedist",
 ];
+
+const LOCATIONS = ["All", "Rajshahi", "Dhaka"];
 
 // ─── Sub-components ──────────────────────────────────────────────────────────
 
@@ -187,81 +198,88 @@ function DoctorCard({ doctor }) {
   return (
     <div className="bg-white border border-gray-100 rounded-2xl p-4 hover:border-teal-200 hover:shadow-sm transition-all duration-150 cursor-pointer">
       {/* Top row */}
-      <div className="flex gap-3">
-        {/* Avatar */}
-        <div
-          className={`w-12 h-12 rounded-full flex items-center justify-center font-medium text-sm flex-shrink-0 ${doctor.color}`}
-        >
-          {doctor.initials}
-        </div>
-
-        {/* Info */}
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-1.5 flex-wrap">
-            <span className="text-sm font-medium text-gray-900">
-              {doctor.name}
-            </span>
-            {/* verified */}
-            <span className="w-4 h-4 rounded-full bg-teal-500 flex items-center justify-center flex-shrink-0">
-              <svg
-                width="8"
-                height="8"
-                viewBox="0 0 10 10"
-                fill="none"
-                stroke="white"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-              >
-                <path d="M2 5l2.5 2.5L8 3" />
-              </svg>
-            </span>
-            {doctor.female && (
-              <span className="text-xs px-2 py-0.5 bg-pink-50 text-pink-700 rounded-full">
-                Female
-              </span>
-            )}
-            {doctor.online && (
-              <span className="text-xs px-2 py-0.5 bg-blue-50 text-blue-700 rounded-full">
-                Online
-              </span>
-            )}
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex gap-3 min-w-0">
+          {/* Avatar */}
+          <div
+            className={`w-12 h-12 rounded-full flex items-center justify-center font-medium text-sm flex-shrink-0 ${doctor.color}`}
+          >
+            {doctor.initials}
           </div>
 
-          <p className="text-xs font-medium text-teal-600 mt-0.5">
-            {doctor.spec}
-          </p>
-          <p className="text-xs text-gray-400">{doctor.exp} years experience</p>
+          {/* Info */}
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-1.5 flex-wrap">
+              <span className="text-sm font-medium text-gray-900">
+                {doctor.name}
+              </span>
+              {/* verified */}
+              <span className="w-4 h-4 rounded-full bg-teal-500 flex items-center justify-center flex-shrink-0">
+                <svg
+                  width="8"
+                  height="8"
+                  viewBox="0 0 10 10"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                >
+                  <path d="M2 5l2.5 2.5L8 3" />
+                </svg>
+              </span>
+              {doctor.female && (
+                <span className="text-xs px-2 py-0.5 bg-pink-50 text-pink-700 rounded-full">
+                  Female
+                </span>
+              )}
+              {doctor.online && (
+                <span className="text-xs px-2 py-0.5 bg-blue-50 text-blue-700 rounded-full">
+                  Online
+                </span>
+              )}
+            </div>
 
-          {/* Meta chips */}
-          <div className="flex items-center gap-3 mt-2 flex-wrap">
-            <span className="flex items-center gap-1 text-xs text-gray-500">
-              <StarRating rating={doctor.rating} />
-              <span className="text-gray-900 font-medium">{doctor.rating}</span>
-              <span className="text-gray-300">({doctor.reviews})</span>
-            </span>
-            <span className="flex items-center gap-1 text-xs text-gray-400">
-              <svg
-                width="11"
-                height="11"
-                viewBox="0 0 16 16"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
+            <p className="text-xs font-medium text-teal-600 mt-0.5">
+              {doctor.spec}
+            </p>
+            <p className="text-xs text-gray-400">
+              {doctor.exp} years experience
+            </p>
+
+            {/* Meta chips */}
+            <div className="flex items-center gap-3 mt-2 flex-wrap">
+              <span className="flex items-center gap-1 text-xs text-gray-500">
+                <StarRating rating={doctor.rating} />
+                <span className="text-gray-900 font-medium">
+                  {doctor.rating}
+                </span>
+                <span className="text-gray-300">({doctor.reviews})</span>
+              </span>
+              <span className="flex items-center gap-1 text-xs text-gray-400">
+                <svg
+                  width="11"
+                  height="11"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                >
+                  <path d="M8 1.5C5.5 1.5 3.5 3.5 3.5 6C3.5 9.5 8 14.5 8 14.5C8 14.5 12.5 9.5 12.5 6C12.5 3.5 10.5 1.5 8 1.5Z" />
+                  <circle cx="8" cy="6" r="1.5" />
+                </svg>
+                {doctor.dist} km
+              </span>
+
+              <span
+                className={`text-xs px-2 py-0.5 rounded-full ${
+                  doctor.availableToday
+                    ? "bg-teal-50 text-teal-700"
+                    : "bg-gray-100 text-gray-400"
+                }`}
               >
-                <path d="M8 1.5C5.5 1.5 3.5 3.5 3.5 6C3.5 9.5 8 14.5 8 14.5C8 14.5 12.5 9.5 12.5 6C12.5 3.5 10.5 1.5 8 1.5Z" />
-                <circle cx="8" cy="6" r="1.5" />
-              </svg>
-              {doctor.dist} km
-            </span>
-            <span
-              className={`text-xs px-2 py-0.5 rounded-full ${
-                doctor.availableToday
-                  ? "bg-teal-50 text-teal-700"
-                  : "bg-gray-100 text-gray-400"
-              }`}
-            >
-              {doctor.availableToday ? "Available today" : "Next available"}
-            </span>
+                {doctor.availableToday ? "Available today" : "Next available"}
+              </span>
+            </div>
           </div>
         </div>
 
@@ -327,6 +345,7 @@ function DoctorCard({ doctor }) {
 
 export default function DoctorsPage() {
   const [query, setQuery] = useState("");
+  const [location, setLocation] = useState("Rajshahi"); // or "All"
   const [activeSpec, setActiveSpec] = useState("All");
   const [sortBy, setSortBy] = useState("rating");
   const [maxFee, setMaxFee] = useState(2000);
@@ -342,6 +361,9 @@ export default function DoctorsPage() {
 
   const results = useMemo(() => {
     let list = DOCTORS.filter((d) => {
+      // Location filter
+      if (location !== "All" && d.location !== location) return false;
+
       if (activeSpec !== "All" && d.spec !== activeSpec) return false;
       if (filters.availableToday && !d.availableToday) return false;
       if (filters.online && !d.online) return false;
@@ -362,14 +384,17 @@ export default function DoctorsPage() {
     else if (sortBy === "exp") list.sort((a, b) => b.exp - a.exp);
 
     return list;
-  }, [query, activeSpec, sortBy, maxFee, minRating, filters]);
+  }, [query, location, activeSpec, sortBy, maxFee, minRating, filters]);
 
   return (
     <div className="min-h-screen bg-gray-50">
-
       {/* ── Top bar ── */}
       <div className="bg-white border-b border-gray-100 px-4 py-3 flex items-center gap-3">
-        <button className="flex items-center gap-1.5 text-xs text-gray-400 border border-gray-100 rounded-lg px-3 py-2 hover:bg-gray-50 transition flex-shrink-0">
+        {/* Home link FIXED */}
+        <Link
+          to="/"
+          className="flex items-center gap-1.5 text-xs text-gray-400 border border-gray-100 rounded-lg px-3 py-2 hover:bg-gray-50 transition flex-shrink-0 no-underline"
+        >
           <svg
             width="12"
             height="12"
@@ -381,7 +406,7 @@ export default function DoctorsPage() {
             <path d="M8 2L4 6l4 4" />
           </svg>
           Home
-        </button>
+        </Link>
 
         <div className="flex-1 flex items-center gap-2 border border-gray-200 rounded-xl px-3 py-2 bg-white focus-within:border-teal-400 focus-within:ring-2 focus-within:ring-teal-100 transition">
           <svg
@@ -413,6 +438,7 @@ export default function DoctorsPage() {
           )}
         </div>
 
+        {/* Location select FIXED */}
         <div className="flex items-center gap-1.5 text-xs text-teal-700 bg-teal-50 border border-teal-200 rounded-full px-3 py-1.5 flex-shrink-0">
           <svg
             width="11"
@@ -425,7 +451,17 @@ export default function DoctorsPage() {
             <path d="M8 1.5C5.5 1.5 3.5 3.5 3.5 6C3.5 9.5 8 14.5 8 14.5C8 14.5 12.5 9.5 12.5 6C12.5 3.5 10.5 1.5 8 1.5Z" />
             <circle cx="8" cy="6" r="1.5" />
           </svg>
-          Rajshahi
+          <select
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            className="bg-transparent outline-none text-teal-700 text-xs font-medium pr-1"
+          >
+            {LOCATIONS.map((loc) => (
+              <option key={loc} value={loc}>
+                {loc}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
 
@@ -448,7 +484,6 @@ export default function DoctorsPage() {
 
       {/* ── Body ── */}
       <div className="max-w-6xl mx-auto px-4 py-5 flex gap-5">
-
         {/* ── Sidebar ── */}
         <aside className="w-56 flex-shrink-0 self-start">
           <div className="bg-white border border-gray-100 rounded-2xl p-4">
@@ -456,10 +491,15 @@ export default function DoctorsPage() {
               <span className="text-sm font-medium text-gray-900">Filters</span>
               <button
                 onClick={() => {
-                  setFilters({ availableToday: false, online: false, femaleOnly: false });
+                  setFilters({
+                    availableToday: false,
+                    online: false,
+                    femaleOnly: false,
+                  });
                   setMaxFee(2000);
                   setMinRating(0);
                   setActiveSpec("All");
+                  setQuery("");
                 }}
                 className="text-xs text-teal-600 hover:text-teal-800 transition"
               >
@@ -549,8 +589,10 @@ export default function DoctorsPage() {
           <div className="flex items-center justify-between mb-4">
             <p className="text-sm text-gray-500">
               Showing{" "}
-              <span className="font-medium text-gray-900">{results.length}</span>{" "}
-              doctors near Rajshahi
+              <span className="font-medium text-gray-900">
+                {results.length}
+              </span>{" "}
+              doctors {location === "All" ? "" : `near ${location}`}
             </p>
             <div className="flex items-center gap-2 text-sm text-gray-400">
               Sort by
@@ -579,7 +621,8 @@ export default function DoctorsPage() {
                 No doctors match your current filters.
               </p>
               <p className="text-gray-300 text-xs mt-1">
-                Try adjusting the specialization or availability settings.
+                Try adjusting the specialization, city, or availability
+                settings.
               </p>
             </div>
           )}

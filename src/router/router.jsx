@@ -11,19 +11,20 @@ import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
 import Root from "../components/layout/Navbar";
 export const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <Root />,
-        children: [
-            {index: true, element: <Home />},
-            {path: "doctor-detail", element: <DoctorDetail />},
-            {path: "doctor-search", element: <DoctorSearch />},
-            {path: "hospital-detail", element: <HospitalDetail />},
-            {path: "service-search", element: <ServiceSearch />},
-            {path: "about", element: <About />},
-            {path: "contact", element: <Contact />},
-            {path: "login", element: <Login />},
-            {path: "register", element: <Register />},
-        ]
-    }
-])
+  {
+    path: "/",
+    element: <Root />,
+    children: [
+      { index: true, element: <Home /> },
+      { path: "doctor/:id", element: <DoctorDetail /> },
+
+      { path: "doctor-search", element: <DoctorSearch /> },
+      { path: "hospital-detail", element: <HospitalDetail /> },
+      { path: "service-search", element: <ServiceSearch /> },
+      { path: "about", element: <About /> },
+      { path: "contact", element: <Contact /> },
+      { path: "login", element: <Login /> },
+      { path: "register", element: <Register /> },
+    ],
+  },
+]);

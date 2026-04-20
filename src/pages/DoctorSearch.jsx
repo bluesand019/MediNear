@@ -1,154 +1,10 @@
 import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
+import { DOCTORS } from "../data/doctors";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
-const DOCTORS = [
-  {
-    id: 1,
-    name: "Dr. Fahmida Hossain",
-    initials: "FH",
-    color: "bg-teal-50 text-teal-800",
-    spec: "Cardiologist",
-    exp: 14,
-    rating: 4.8,
-    reviews: 126,
-    fee: 800,
-    dist: 1.2,
-    availableToday: true,
-    online: true,
-    female: true,
-    hospital: "Rajshahi Medical College Hospital",
-    location: "Rajshahi",
-    slots: ["10:00 AM", "11:30 AM", "3:00 PM"],
-  },
-  {
-    id: 2,
-    name: "Dr. Arif Billah",
-    initials: "AB",
-    color: "bg-blue-50 text-blue-800",
-    spec: "Neurologist",
-    exp: 10,
-    rating: 4.6,
-    reviews: 89,
-    fee: 1000,
-    dist: 2.1,
-    availableToday: true,
-    online: false,
-    female: false,
-    hospital: "Popular Diagnostic Centre",
-    location: "Rajshahi",
-    slots: ["9:30 AM", "2:00 PM"],
-  },
-  {
-    id: 3,
-    name: "Dr. Sadia Islam",
-    initials: "SI",
-    color: "bg-pink-50 text-pink-800",
-    spec: "Gynecologist",
-    exp: 8,
-    rating: 4.9,
-    reviews: 203,
-    fee: 600,
-    dist: 0.8,
-    availableToday: true,
-    online: true,
-    female: true,
-    hospital: "Ibn Sina Hospital, Rajshahi",
-    location: "Rajshahi",
-    slots: ["8:30 AM", "12:00 PM", "4:30 PM"],
-  },
-  {
-    id: 4,
-    name: "Dr. Tanvir Ahmed",
-    initials: "TA",
-    color: "bg-amber-50 text-amber-800",
-    spec: "Dentist",
-    exp: 6,
-    rating: 4.4,
-    reviews: 54,
-    fee: 400,
-    dist: 1.5,
-    availableToday: false,
-    online: true,
-    female: false,
-    hospital: "Smilezone Dental Clinic",
-    location: "Rajshahi",
-    slots: [],
-  },
-  {
-    id: 5,
-    name: "Dr. Rubina Khanam",
-    initials: "RK",
-    color: "bg-green-50 text-green-800",
-    spec: "Dermatologist",
-    exp: 11,
-    rating: 4.7,
-    reviews: 98,
-    fee: 750,
-    dist: 3.2,
-    availableToday: true,
-    online: false,
-    female: true,
-    hospital: "Skin & Care Center",
-    location: "Rajshahi",
-    slots: ["11:00 AM", "5:00 PM"],
-  },
-  {
-    id: 6,
-    name: "Dr. Mahbub Alam",
-    initials: "MA",
-    color: "bg-purple-50 text-purple-800",
-    spec: "Pediatrician",
-    exp: 17,
-    rating: 4.5,
-    reviews: 172,
-    fee: 500,
-    dist: 2.8,
-    availableToday: true,
-    online: true,
-    female: false,
-    hospital: "Children Welfare Hospital",
-    location: "Rajshahi",
-    slots: ["10:30 AM", "1:00 PM", "3:30 PM"],
-  },
-  {
-    id: 7,
-    name: "Dr. Nasrin Sultana",
-    initials: "NS",
-    color: "bg-teal-50 text-teal-800",
-    spec: "Orthopedist",
-    exp: 9,
-    rating: 4.3,
-    reviews: 61,
-    fee: 900,
-    dist: 4.0,
-    availableToday: false,
-    online: false,
-    female: true,
-    hospital: "Bone & Joint Hospital",
-    location: "Dhaka",
-    slots: [],
-  },
-  {
-    id: 8,
-    name: "Dr. Rezaul Karim",
-    initials: "RK",
-    color: "bg-blue-50 text-blue-800",
-    spec: "Cardiologist",
-    exp: 20,
-    rating: 4.9,
-    reviews: 310,
-    fee: 1500,
-    dist: 5.1,
-    availableToday: true,
-    online: true,
-    female: false,
-    hospital: "Heart Foundation Hospital",
-    location: "Dhaka",
-    slots: ["9:00 AM", "4:00 PM"],
-  },
-];
+
 
 const SPECIALIZATIONS = [
   "All",
@@ -329,9 +185,12 @@ function DoctorCard({ doctor }) {
           <span className="truncate">{doctor.hospital}</span>
         </span>
         <div className="flex items-center gap-2 flex-shrink-0 ml-2">
-          <button className="text-xs px-3 py-1.5 rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-50 transition-colors">
+          <Link
+            to={`/doctor/${doctor.id}`}
+            className="text-xs px-3 py-1.5 rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-50 transition-colors no-underline"
+          >
             View profile
-          </button>
+          </Link>
           <button className="text-xs px-3 py-1.5 rounded-lg bg-teal-600 text-white font-medium hover:bg-teal-700 active:scale-95 transition-all">
             {doctor.availableToday ? "Book now" : "Check schedule"}
           </button>

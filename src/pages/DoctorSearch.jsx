@@ -4,8 +4,6 @@ import { DOCTORS } from "../data/doctors";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
-
-
 const SPECIALIZATIONS = [
   "All",
   "Cardiologist",
@@ -54,7 +52,7 @@ function DoctorCard({ doctor }) {
   return (
     <div className="bg-white border border-gray-100 rounded-2xl p-4 hover:border-teal-200 hover:shadow-sm transition-all duration-150 cursor-pointer">
       {/* Top row */}
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
         <div className="flex gap-3 min-w-0">
           {/* Avatar */}
           <div
@@ -140,7 +138,7 @@ function DoctorCard({ doctor }) {
         </div>
 
         {/* Fee */}
-        <div className="text-right flex-shrink-0">
+        <div className="text-left sm:text-right flex-shrink-0">
           <p className="text-sm font-medium text-gray-900">৳{doctor.fee}</p>
           <p className="text-xs text-gray-400">per visit</p>
         </div>
@@ -168,7 +166,7 @@ function DoctorCard({ doctor }) {
       )}
 
       {/* Bottom row */}
-      <div className="flex items-center justify-between mt-3 pt-3 border-t border-gray-50">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-3 pt-3 border-t border-gray-50 gap-3">
         <span className="flex items-center gap-1.5 text-xs text-gray-400 min-w-0">
           <svg
             width="11"
@@ -184,7 +182,7 @@ function DoctorCard({ doctor }) {
           </svg>
           <span className="truncate">{doctor.hospital}</span>
         </span>
-        <div className="flex items-center gap-2 flex-shrink-0 ml-2">
+        <div className="flex flex-wrap items-center gap-2 flex-shrink-0">
           <Link
             to={`/doctor/${doctor.id}`}
             className="text-xs px-3 py-1.5 rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-50 transition-colors no-underline"
@@ -248,7 +246,7 @@ export default function DoctorsPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* ── Top bar ── */}
-      <div className="bg-white border-b border-gray-100 px-4 py-3 flex items-center gap-3">
+      <div className="bg-white border-b border-gray-100 px-4 py-3 flex flex-col sm:flex-row sm:items-center gap-3">
         {/* Home link FIXED */}
         <Link
           to="/"
@@ -267,7 +265,7 @@ export default function DoctorsPage() {
           Home
         </Link>
 
-        <div className="flex-1 flex items-center gap-2 border border-gray-200 rounded-xl px-3 py-2 bg-white focus-within:border-teal-400 focus-within:ring-2 focus-within:ring-teal-100 transition">
+        <div className="w-full sm:flex-1 min-w-0 flex items-center gap-2 border border-gray-200 rounded-xl px-3 py-2 bg-white focus-within:border-teal-400 focus-within:ring-2 focus-within:ring-teal-100 transition">
           <svg
             width="14"
             height="14"
@@ -285,7 +283,7 @@ export default function DoctorsPage() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search by name or specialization…"
-            className="flex-1 text-sm text-gray-800 placeholder-gray-300 outline-none bg-transparent"
+            className="flex-1 min-w-0 text-sm text-gray-800 placeholder-gray-300 outline-none bg-transparent"
           />
           {query && (
             <button
@@ -342,9 +340,9 @@ export default function DoctorsPage() {
       </div>
 
       {/* ── Body ── */}
-      <div className="max-w-6xl mx-auto px-4 py-5 flex gap-5">
+      <div className="max-w-6xl mx-auto px-4 py-5 flex flex-col lg:flex-row gap-5">
         {/* ── Sidebar ── */}
-        <aside className="w-56 flex-shrink-0 self-start">
+        <aside className="w-full lg:w-56 flex-shrink-0 self-start">
           <div className="bg-white border border-gray-100 rounded-2xl p-4">
             <div className="flex items-center justify-between mb-4">
               <span className="text-sm font-medium text-gray-900">Filters</span>
@@ -445,7 +443,7 @@ export default function DoctorsPage() {
         {/* ── Results ── */}
         <div className="flex-1 min-w-0">
           {/* Results header */}
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3">
             <p className="text-sm text-gray-500">
               Showing{" "}
               <span className="font-medium text-gray-900">

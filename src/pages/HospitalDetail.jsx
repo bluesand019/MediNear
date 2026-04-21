@@ -157,7 +157,7 @@ function HospitalCard({ hospital }) {
   return (
     <div className="bg-white border border-gray-100 rounded-2xl p-4 hover:border-teal-200 hover:shadow-sm transition-all duration-150 cursor-pointer">
       {/* Top row */}
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
         <div className="min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
             <span className="text-sm font-medium text-gray-900 truncate">
@@ -482,9 +482,9 @@ export default function HospitalDetail() {
       </div>
 
       {/* ── Body ── */}
-      <div className="max-w-6xl mx-auto px-4 py-5 flex gap-5">
+      <div className="max-w-6xl mx-auto px-4 py-5 flex flex-col lg:flex-row gap-5">
         {/* ── Sidebar ── */}
-        <aside className="w-56 flex-shrink-0 self-start">
+        <aside className="w-full lg:w-56 flex-shrink-0 self-start">
           <div className="bg-white border border-gray-100 rounded-2xl p-4">
             <div className="flex items-center justify-between mb-4">
               <span className="text-sm font-medium text-gray-900">Filters</span>

@@ -33,7 +33,7 @@ export default function Root() {
         ref={navRef}
         className="fixed top-0 left-0 right-0 z-[9999] bg-white border-b border-gray-200"
       >
-        <nav className="flex items-center justify-between lg:grid lg:grid-cols-[1fr_auto_1fr] px-6 py-3 max-w-7xl mx-auto">
+        <nav className="flex items-center justify-between lg:grid lg:grid-cols-[1fr_auto_1fr] px-4 sm:px-6 py-3 max-w-7xl mx-auto">
           <Link
             to="/"
             className="flex items-center gap-2 no-underline text-black font-bold text-lg"

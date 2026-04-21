@@ -430,7 +430,7 @@ function ServiceBadge({ category }) {
 
 function ServiceRow({ service }) {
   return (
-    <div className="flex items-center justify-between py-2.5 border-b border-gray-50 last:border-0 gap-3">
+    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between py-2.5 border-b border-gray-50 last:border-0 gap-3">
       <div className="flex items-center gap-2 min-w-0">
         <span
           className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${
@@ -445,7 +445,7 @@ function ServiceRow({ service }) {
           {service.name}
         </span>
       </div>
-      <div className="flex items-center gap-3 flex-shrink-0">
+      <div className="flex flex-wrap items-center gap-3 flex-shrink-0">
         <ServiceBadge category={service.category} />
         <span
           className={`text-sm font-medium w-16 text-right ${
@@ -591,11 +591,11 @@ function HospitalCard({ hospital, activeCategory }) {
 
       {/* Services table */}
       <div className="border-t border-gray-50 px-4 pt-1 pb-2">
-        <div className="mb-1 flex items-center justify-between">
+        <div className="mb-1 flex items-center justify-between gap-3 flex-wrap">
           <span className="text-xs font-medium text-gray-400 uppercase tracking-wider py-2">
             Available services ({visibleServices.length})
           </span>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             <button className="text-xs text-gray-400 hover:text-gray-600 flex items-center gap-1 transition">
               <svg
                 width="11"
@@ -649,9 +649,6 @@ export default function ServicesPage() {
     availableOnly: false,
   });
 
-  const toggleFilter = (key) =>
-    setFilters((prev) => ({ ...prev, [key]: !prev[key] }));
-
   const results = useMemo(() => {
     let list = SERVICES.filter((h) => {
       // Location filter
@@ -703,10 +700,13 @@ export default function ServicesPage() {
     return list;
   }, [query, location, activeCategory, sortBy, maxPrice, filters]);
 
+  const toggleFilter = (key) =>
+    setFilters((prev) => ({ ...prev, [key]: !prev[key] }));
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* ── Top bar ── */}
-      <div className="bg-white border-b border-gray-100 px-4 py-3 flex items-center gap-3">
+      <div className="bg-white border-b border-gray-100 px-4 py-3 flex flex-col sm:flex-row sm:items-center gap-3">
         <Link
           to="/"
           className="flex items-center gap-1.5 text-xs text-gray-400 border border-gray-100 rounded-lg px-3 py-2 hover:bg-gray-50 transition flex-shrink-0 no-underline"
@@ -724,7 +724,7 @@ export default function ServicesPage() {
           Home
         </Link>
 
-        <div className="flex-1 flex items-center gap-2 border border-gray-200 rounded-xl px-3 py-2 bg-white focus-within:border-teal-400 focus-within:ring-2 focus-within:ring-teal-100 transition">
+        <div className="w-full sm:flex-1 min-w-0 flex items-center gap-2 border border-gray-200 rounded-xl px-3 py-2 bg-white focus-within:border-teal-400 focus-within:ring-2 focus-within:ring-teal-100 transition">
           <svg
             width="14"
             height="14"
@@ -742,7 +742,7 @@ export default function ServicesPage() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search services or hospitals… e.g. blood test, MRI"
-            className="flex-1 text-sm text-gray-800 placeholder-gray-300 outline-none bg-transparent"
+            className="flex-1 min-w-0 text-sm text-gray-800 placeholder-gray-300 outline-none bg-transparent"
           />
           {query && (
             <button
@@ -808,9 +808,9 @@ export default function ServicesPage() {
       </div>
 
       {/* ── Body ── */}
-      <div className="max-w-6xl mx-auto px-4 py-5 flex gap-5">
+      <div className="max-w-6xl mx-auto px-4 py-5 flex flex-col lg:flex-row gap-5">
         {/* ── Sidebar ── */}
-        <aside className="w-56 flex-shrink-0 self-start">
+        <aside className="w-full lg:w-56 flex-shrink-0 self-start">
           <div className="bg-white border border-gray-100 rounded-2xl p-4">
             <div className="flex items-center justify-between mb-4">
               <span className="text-sm font-medium text-gray-900">Filters</span>
@@ -846,9 +846,7 @@ export default function ServicesPage() {
                     <span className="text-xs text-gray-500">{label}</span>
                     <Toggle
                       checked={filters[key]}
-                      onChange={() =>
-                        setFilters((p) => ({ ...p, [key]: !p[key] }))
-                      }
+                      onChange={() => toggleFilter(key)}
                     />
                   </div>
                 ))}
@@ -915,10 +913,10 @@ export default function ServicesPage() {
           </div>
         </aside>
 
-        {/* ── Results ── */}
+        {/* ── Results ─�� */}
         <div className="flex-1 min-w-0">
           {/* Header */}
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3">
             <div>
               <p className="text-sm text-gray-500">
                 <span className="font-medium text-gray-900">

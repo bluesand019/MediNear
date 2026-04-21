@@ -9,6 +9,7 @@ import About from "../pages/About";
 import Contact from "../pages/Contact";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
+import JoinAsProviderPage from "@/pages/JoinAsProvider";
 import Root from "../components/layout/Navbar";
 export const router = createBrowserRouter([
   {
@@ -25,6 +26,7 @@ export const router = createBrowserRouter([
       { path: "contact", element: <Contact /> },
       { path: "login", element: <Login /> },
       { path: "register", element: <Register /> },
+      { path: "provider", element: <JoinAsProviderPage /> },
     ],
   },
 ]);

@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 const LINKS = {
   platform: {
     label: "Platform",
@@ -157,12 +159,12 @@ export default function Footer() {
               List your services and doctors to reach more patients.
             </p>
           </div>
-          <a
-            href="/join"
+          <Link
+           to="/provider"
             className="flex-shrink-0 text-sm font-medium text-white bg-teal-600 hover:bg-teal-700 active:scale-95 transition-all duration-150 px-5 py-2 rounded-lg"
           >
             Join as a provider →
-          </a>
+          </Link>
         </div>
       </div>
 

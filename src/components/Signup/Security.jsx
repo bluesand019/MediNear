@@ -3,7 +3,7 @@ import React from "react";
 const Security = ({ setStage }) => {
   const submitHandler = (e) => {
     e.preventDefault();
-    alert("Account Created!"); // Replace with your logic
+    alert("Account Created!");
   };
 
   const inputStyle = "w-full rounded-lg border border-gray-200 px-3 py-2.5 text-sm text-gray-800 outline-none transition focus:border-teal-400 focus:ring-2 focus:ring-teal-100";

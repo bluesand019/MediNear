@@ -1,23 +1,31 @@
-import React, { useState } from "react"; // 1. Added useState
+import React, { useState, useRef, useEffect } from "react";
 import stethoscopeImg from "./stethoscope.png";
 import Searchbar from "../search/Searchbar";
 import Loc from "./Loc";
 import BlurText from "../BlurText";
 
 const Hero = () => {
-  // 2. Initialize state for the city
   const [city, setCity] = useState("Rajshahi");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
-  const handleAnimationComplete = () => {
-    console.log('Animation completed!');
-  };
+  // List of cities for the dropdown
+  const cities = ["Rajshahi", "Dhaka", "Chittagong", "Sylhet", "Khulna"];
 
-  // 3. Simple function to change city via prompt
-  const handleChangeCity = () => {
-    const newCity = prompt("Enter your city:", city);
-    if (newCity && newCity.trim() !== "") {
-      setCity(newCity);
-    }
+  // Close dropdown if clicking outside of it
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleCitySelect = (selectedCity) => {
+    setCity(selectedCity);
+    setIsDropdownOpen(false);
   };
 
   return (
@@ -37,10 +45,9 @@ const Hero = () => {
               className="inline"
             />
             {" "}
-            {/* 4. Use the state variable here */}
             <span className="text-[#0F6E56]">
               <BlurText
-                key={city} // Adding a key forces re-animation when city changes
+                key={city}
                 text={city}
                 delay={200}
                 animateBy="words"
@@ -76,22 +83,47 @@ const Hero = () => {
         </button>
       </div>
 
-      {/* Location Footer */}
-      <div className="mt-8 flex items-center gap-x-2 text-sm text-gray-500">
+      {/* Location Footer with Dropdown */}
+      <div className="mt-8 flex items-center gap-x-2 text-sm text-gray-500 relative" ref={dropdownRef}>
         <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
         </svg>
         <span>
-          {/* 5. Pass city as a prop if <Loc /> needs to display it */}
           Your location: <strong>{city}</strong>
         </span>
-        <button 
-          onClick={handleChangeCity} // 6. Attach the click handler
-          className="font-medium text-green-600 hover:text-green-500 cursor-pointer underline-offset-4 hover:underline"
-        >
-          Change city
-        </button>
+        
+        <div className="relative">
+          <button 
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            className="font-medium text-green-600 hover:text-green-500 cursor-pointer underline-offset-4 hover:underline flex items-center gap-1"
+          >
+            Change city
+            <svg className={`h-4 w-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+
+          {/* Dropdown Menu */}
+          {isDropdownOpen && (
+            <div className="absolute bottom-full mb-2 left-0 w-40 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 z-50">
+              <div className="py-1" role="menu">
+                {cities.map((item) => (
+                  <button
+                    key={item}
+                    onClick={() => handleCitySelect(item)}
+                    className={`${
+                      city === item ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
+                    } block w-full px-4 py-2 text-left text-sm hover:bg-green-50 hover:text-green-700`}
+                    role="menuitem"
+                  >
+                    {item}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

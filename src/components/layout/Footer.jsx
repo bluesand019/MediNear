@@ -4,9 +4,9 @@ const LINKS = {
   platform: {
     label: "Platform",
     items: [
-      { name: "Find a service", href: "/search/services" },
-      { name: "Find a doctor", href: "/search/doctors" },
-      { name: "Browse hospitals", href: "/hospitals" },
+      { name: "Find a service", href: "/service-search" },
+      { name: "Find a doctor", href: "/doctor-search" },
+      { name: "Browse hospitals", href: "/hospital-detail" },
       { name: "Specializations", href: "/specializations" },
     ],
   },

@@ -202,11 +202,13 @@ function DoctorCard({ doctor }) {
 
 export default function DoctorsPage() {
   const [query, setQuery] = useState("");
-  const [location, setLocation] = useState("Rajshahi"); // or "All"
+  const [location, setLocation] = useState("Rajshahi");
   const [activeSpec, setActiveSpec] = useState("All");
   const [sortBy, setSortBy] = useState("rating");
   const [maxFee, setMaxFee] = useState(2000);
   const [minRating, setMinRating] = useState(0);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // New state for collapse
+  
   const [filters, setFilters] = useState({
     availableToday: true,
     online: false,
@@ -218,9 +220,7 @@ export default function DoctorsPage() {
 
   const results = useMemo(() => {
     let list = DOCTORS.filter((d) => {
-      // Location filter
       if (location !== "All" && d.location !== location) return false;
-
       if (activeSpec !== "All" && d.spec !== activeSpec) return false;
       if (filters.availableToday && !d.availableToday) return false;
       if (filters.online && !d.online) return false;
@@ -244,37 +244,21 @@ export default function DoctorsPage() {
   }, [query, location, activeSpec, sortBy, maxFee, minRating, filters]);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 pb-20 lg:pb-0">
       {/* ── Top bar ── */}
-      <div className="bg-white border-b border-gray-100 px-4 py-3 flex flex-col sm:flex-row sm:items-center gap-3">
-        {/* Home link FIXED */}
+      <div className="bg-white border-b border-gray-100 px-4 py-3 flex flex-col sm:flex-row sm:items-center gap-3 sticky top-0 z-30">
         <Link
           to="/"
           className="flex items-center gap-1.5 text-xs text-gray-400 border border-gray-100 rounded-lg px-3 py-2 hover:bg-gray-50 transition flex-shrink-0 no-underline"
         >
-          <svg
-            width="12"
-            height="12"
-            viewBox="0 0 12 12"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-          >
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M8 2L4 6l4 4" />
           </svg>
           Home
         </Link>
 
         <div className="w-full sm:flex-1 min-w-0 flex items-center gap-2 border border-gray-200 rounded-xl px-3 py-2 bg-white focus-within:border-teal-400 focus-within:ring-2 focus-within:ring-teal-100 transition">
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 16 16"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            className="text-gray-300 flex-shrink-0"
-          >
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-gray-300 flex-shrink-0">
             <circle cx="6.5" cy="6.5" r="4.5" />
             <path d="M10.5 10.5L14 14" strokeLinecap="round" />
           </svg>
@@ -285,44 +269,21 @@ export default function DoctorsPage() {
             placeholder="Search by name or specialization…"
             className="flex-1 min-w-0 text-sm text-gray-800 placeholder-gray-300 outline-none bg-transparent"
           />
-          {query && (
-            <button
-              onClick={() => setQuery("")}
-              className="text-gray-300 hover:text-gray-500 text-xs"
-            >
-              ✕
-            </button>
-          )}
         </div>
 
-        {/* Location select FIXED */}
-        <div className="flex items-center gap-1.5 text-xs text-teal-700 bg-teal-50 border border-teal-200 rounded-full px-3 py-1.5 flex-shrink-0">
-          <svg
-            width="11"
-            height="11"
-            viewBox="0 0 16 16"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-          >
-            <path d="M8 1.5C5.5 1.5 3.5 3.5 3.5 6C3.5 9.5 8 14.5 8 14.5C8 14.5 12.5 9.5 12.5 6C12.5 3.5 10.5 1.5 8 1.5Z" />
-            <circle cx="8" cy="6" r="1.5" />
+        {/* Mobile Filter Toggle (Visible only on mobile/tablet) */}
+        <button 
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+          className="lg:hidden flex items-center justify-center gap-2 px-4 py-2 bg-teal-50 text-teal-700 rounded-xl text-sm font-medium border border-teal-100"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M4 6h16M4 12h10M4 18h7" />
           </svg>
-          <select
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            className="bg-transparent outline-none text-teal-700 text-xs font-medium pr-1"
-          >
-            {LOCATIONS.map((loc) => (
-              <option key={loc} value={loc}>
-                {loc}
-              </option>
-            ))}
-          </select>
-        </div>
+          Filters
+        </button>
       </div>
 
-      {/* ── Specialization pills (horizontal scroll) ── */}
+      {/* ── Specialization pills ── */}
       <div className="bg-white border-b border-gray-100 px-4 py-3 flex items-center gap-2 overflow-x-auto no-scrollbar">
         {SPECIALIZATIONS.map((spec) => (
           <button
@@ -340,149 +301,120 @@ export default function DoctorsPage() {
       </div>
 
       {/* ── Body ── */}
-      <div className="max-w-6xl mx-auto px-4 py-5 flex flex-col lg:flex-row gap-5">
-        {/* ── Sidebar ── */}
-        <aside className="w-full lg:w-56 flex-shrink-0 self-start">
-          <div className="bg-white border border-gray-100 rounded-2xl p-4">
+      <div className="max-w-6xl mx-auto px-4 py-5 flex flex-col lg:flex-row gap-5 relative">
+        
+        {/* ── Collapsible Sidebar ── */}
+        <aside className={`
+          fixed inset-y-0 left-0 z-40 w-72 bg-white p-6 transform transition-transform duration-300 ease-in-out border-r border-gray-100
+          lg:relative lg:translate-x-0 lg:z-0 lg:w-56 lg:p-0 lg:bg-transparent lg:border-none
+          ${isSidebarOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full lg:translate-x-0"}
+        `}>
+          <div className="bg-white lg:border lg:border-gray-100 lg:rounded-2xl lg:p-4">
             <div className="flex items-center justify-between mb-4">
-              <span className="text-sm font-medium text-gray-900">Filters</span>
+              <span className="text-sm font-bold text-gray-900 lg:font-medium">Filters</span>
+              <button 
+                onClick={() => setIsSidebarOpen(false)}
+                className="lg:hidden text-gray-400 p-1"
+              >
+                ✕
+              </button>
               <button
                 onClick={() => {
-                  setFilters({
-                    availableToday: false,
-                    online: false,
-                    femaleOnly: false,
-                  });
+                  setFilters({ availableToday: false, online: false, femaleOnly: false });
                   setMaxFee(2000);
                   setMinRating(0);
                   setActiveSpec("All");
                   setQuery("");
                 }}
-                className="text-xs text-teal-600 hover:text-teal-800 transition"
+                className="hidden lg:block text-xs text-teal-600 hover:text-teal-800 transition"
               >
                 Clear all
               </button>
             </div>
 
-            {/* Availability toggles */}
-            <div className="mb-5">
-              <p className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-3">
-                Availability
-              </p>
-              <div className="flex flex-col gap-3">
-                {[
-                  { key: "availableToday", label: "Available today" },
-                  { key: "online", label: "Online consult" },
-                  { key: "femaleOnly", label: "Female doctors only" },
-                ].map(({ key, label }) => (
-                  <div key={key} className="flex items-center justify-between">
-                    <span className="text-xs text-gray-500">{label}</span>
-                    <Toggle
-                      checked={filters[key]}
-                      onChange={() => toggleFilter(key)}
-                    />
-                  </div>
-                ))}
+            {/* Filter Content (Reuse your existing filter UI here) */}
+            <div className="space-y-6">
+              {/* Availability */}
+              <div>
+                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Availability</p>
+                <div className="flex flex-col gap-3">
+                  {[{ key: "availableToday", label: "Available today" }, { key: "online", label: "Online consult" }, { key: "femaleOnly", label: "Female doctors" }].map(({ key, label }) => (
+                    <div key={key} className="flex items-center justify-between">
+                      <span className="text-xs text-gray-500">{label}</span>
+                      <Toggle checked={filters[key]} onChange={() => toggleFilter(key)} />
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
 
-            {/* Max fee slider */}
-            <div className="mb-5">
-              <div className="flex items-center justify-between mb-2">
-                <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">
-                  Max fee
-                </p>
-                <span className="text-xs font-medium text-gray-700">
-                  {maxFee === 2000 ? "Any" : `৳${maxFee}`}
-                </span>
+              {/* Fee Slider */}
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Max fee</p>
+                  <span className="text-xs font-bold text-teal-600">৳{maxFee}</span>
+                </div>
+                <input type="range" min={200} max={2000} step={100} value={maxFee} onChange={(e) => setMaxFee(Number(e.target.value))} className="w-full accent-teal-500" />
               </div>
-              <input
-                type="range"
-                min={200}
-                max={2000}
-                step={100}
-                value={maxFee}
-                onChange={(e) => setMaxFee(Number(e.target.value))}
-                className="w-full accent-teal-500"
-              />
-              <div className="flex justify-between text-xs text-gray-300 mt-1">
-                <span>৳200</span>
-                <span>৳2000</span>
-              </div>
-            </div>
 
-            {/* Min rating */}
-            <div>
-              <p className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-2">
-                Min rating
-              </p>
-              <div className="grid grid-cols-2 gap-1.5">
-                {[
-                  { label: "Any", value: 0 },
-                  { label: "3+", value: 3 },
-                  { label: "4+", value: 4 },
-                  { label: "4.5+", value: 4.5 },
-                ].map(({ label, value }) => (
-                  <button
-                    key={value}
-                    onClick={() => setMinRating(value)}
-                    className={`text-xs py-1.5 rounded-lg border transition-all ${
-                      minRating === value
-                        ? "bg-teal-50 border-teal-400 text-teal-700 font-medium"
-                        : "border-gray-200 text-gray-400 hover:border-gray-300"
-                    }`}
-                  >
-                    {label}
-                  </button>
-                ))}
+              {/* Rating */}
+              <div>
+                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Min rating</p>
+                <div className="grid grid-cols-2 gap-2">
+                  {[0, 3, 4, 4.5].map((val) => (
+                    <button key={val} onClick={() => setMinRating(val)} className={`text-xs py-2 rounded-lg border transition-all ${minRating === val ? "bg-teal-50 border-teal-400 text-teal-700 font-bold" : "border-gray-100 text-gray-400"}`}>
+                      {val === 0 ? "Any" : `${val}+`}
+                    </button>
+                  ))}
+                </div>
               </div>
+
+              <button 
+                onClick={() => setIsSidebarOpen(false)}
+                className="w-full lg:hidden bg-teal-600 text-white py-3 rounded-xl font-medium mt-4"
+              >
+                Show {results.length} Results
+              </button>
             </div>
           </div>
         </aside>
 
+        {/* Overlay for mobile */}
+        {isSidebarOpen && (
+          <div 
+            className="fixed inset-0 bg-black/20 backdrop-blur-sm z-30 lg:hidden"
+            onClick={() => setIsSidebarOpen(false)}
+          />
+        )}
+
         {/* ── Results ── */}
         <div className="flex-1 min-w-0">
-          {/* Results header */}
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3">
             <p className="text-sm text-gray-500">
-              Showing{" "}
-              <span className="font-medium text-gray-900">
-                {results.length}
-              </span>{" "}
-              doctors {location === "All" ? "" : `near ${location}`}
+              Showing <span className="font-medium text-gray-900">{results.length}</span> doctors
             </p>
             <div className="flex items-center gap-2 text-sm text-gray-400">
               Sort by
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="text-sm border border-gray-200 rounded-lg px-2 py-1.5 text-gray-700 outline-none focus:border-teal-400 transition"
+                className="text-sm border border-gray-200 rounded-lg px-2 py-1.5 text-gray-700 outline-none bg-white"
               >
                 <option value="rating">Highest rated</option>
                 <option value="fee">Lowest fee</option>
-                <option value="exp">Most experienced</option>
+                <option value="exp">Experience</option>
               </select>
             </div>
           </div>
 
-          {/* Cards */}
-          {results.length > 0 ? (
-            <div className="flex flex-col gap-3">
-              {results.map((doctor) => (
-                <DoctorCard key={doctor.id} doctor={doctor} />
-              ))}
-            </div>
-          ) : (
-            <div className="bg-white border border-gray-100 rounded-2xl p-12 text-center">
-              <p className="text-gray-400 text-sm">
-                No doctors match your current filters.
-              </p>
-              <p className="text-gray-300 text-xs mt-1">
-                Try adjusting the specialization, city, or availability
-                settings.
-              </p>
-            </div>
-          )}
+          <div className="flex flex-col gap-3">
+            {results.length > 0 ? (
+              results.map((doctor) => <DoctorCard key={doctor.id} doctor={doctor} />)
+            ) : (
+              <div className="bg-white border border-gray-100 rounded-2xl p-12 text-center text-gray-400">
+                No doctors match your filters.
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

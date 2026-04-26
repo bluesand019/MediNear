@@ -66,7 +66,7 @@ const HorizontalSteps = () => {
             key={step.id}
             variants={cardItemVariants}
             whileHover={{ y: -8, transition: { duration: 0.2 } }}
-            className="bg-white p-8 rounded-3xl border border-emerald-100 shadow-sm flex flex-col items-center text-center transform transition-transform duration-300"
+            className="bg-white cursor-pointer p-8 rounded-3xl border border-emerald-100 shadow-sm flex flex-col items-center text-center transform transition-transform duration-300"
           >
             <div className="w-20 h-20 bg-emerald-50 rounded-full flex items-center justify-center mb-6 ring-8 ring-emerald-50/50">
               {step.icon}

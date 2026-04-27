@@ -116,7 +116,7 @@ export default function About() {
       {/* Hero */}
       <div className="px-4 pt-8 pb-6">
         <div className="max-w-6xl mx-auto">
-          <div className="relative overflow-hidden rounded-3xl border border-gray-100 bg-gradient-to-br from-teal-600 via-emerald-600 to-teal-700 text-white">
+          <div className="cursor-pointer relative overflow-hidden rounded-3xl border border-gray-100 bg-gradient-to-br from-teal-600 via-emerald-600 to-teal-700 text-white">
             <div className="absolute inset-0 opacity-20">
               <div className="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-white/20 blur-2xl" />
               <div className="absolute -bottom-28 -left-28 w-72 h-72 rounded-full bg-white/20 blur-2xl" />

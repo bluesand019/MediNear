@@ -80,7 +80,6 @@ export default function About() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Top bar */}
       <div className="bg-white/80 backdrop-blur border-b border-gray-100 px-4 py-3 sticky top-0 z-10">
         <div className="max-w-6xl mx-auto flex items-center justify-between gap-3">
           <Link
@@ -113,7 +112,6 @@ export default function About() {
         </div>
       </div>
 
-      {/* Hero */}
       <div className="px-4 pt-8 pb-6">
         <div className="max-w-6xl mx-auto">
           <div className="cursor-pointer relative overflow-hidden rounded-3xl border border-gray-100 bg-gradient-to-br from-teal-600 via-emerald-600 to-teal-700 text-white">
@@ -168,7 +166,6 @@ export default function About() {
         </div>
       </div>
 
-      {/* Highlights */}
       <div className="px-4 pb-6">
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4">
           {highlights.map((h) => (
@@ -190,7 +187,6 @@ export default function About() {
         </div>
       </div>
 
-      {/* How it works */}
       <div className="px-4 pb-6">
         <div className="max-w-6xl mx-auto bg-white border border-gray-100 rounded-3xl p-6 sm:p-8">
           <div className="flex items-center justify-between gap-3 flex-wrap">
@@ -230,7 +226,6 @@ export default function About() {
         </div>
       </div>
 
-      {/* CTA */}
       <div className="px-4 pb-10">
         <div className="max-w-6xl mx-auto">
           <div className="bg-white border border-gray-100 rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">

@@ -14,19 +14,6 @@ const Home = () => {
         className="services"
       />
 
-      {/* <GridList
-        title="Find doctors by specialization"
-        sub="Browse specialists available near you"
-        dummy_data={[
-          "Cardiologist",
-          "Neurologist",
-          "Dentist",
-          "Dermatologist",
-          "+More specialists",
-        ]}
-        className="specialists"
-      /> */}
-
       <StepsStack />
       <StatsSection />
       <Footer />

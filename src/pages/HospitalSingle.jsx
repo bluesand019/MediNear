@@ -107,11 +107,19 @@ const HOSPITALS = [
   },
 ];
 
-function Chip({ children, className = "" }) {
+
+
+function Badge({ children, variant = "default" }) {
+  const styles = {
+    default: "bg-gray-100 text-gray-600",
+    success: "bg-emerald-50 text-emerald-700 border border-emerald-100",
+    warning: "bg-amber-50 text-amber-700 border border-amber-100",
+    info: "bg-blue-50 text-blue-700 border border-blue-100",
+    primary: "bg-teal-50 text-teal-700 border border-teal-100",
+  };
+
   return (
-    <span
-      className={`text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 ${className}`}
-    >
+    <span className={`text-[11px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-md ${styles[variant]}`}>
       {children}
     </span>
   );
@@ -127,174 +135,127 @@ export default function HospitalSingle() {
 
   if (!hospital) {
     return (
-      <div className="min-h-screen bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 py-10">
-          <div className="bg-white border border-gray-100 rounded-2xl p-10 text-center">
-            <p className="text-gray-500 text-sm">Hospital not found.</p>
-            <Link
-              to="/hospital-detail"
-              className="inline-block mt-4 text-sm font-medium text-teal-600 hover:text-teal-800 no-underline"
-            >
-              Back to hospitals →
-            </Link>
-          </div>
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 p-6">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-gray-900">Hospital not found</h2>
+          <Link to="/hospital-detail" className="text-teal-600 font-medium mt-4 inline-block">
+            ← Return to directory
+          </Link>
         </div>
       </div>
     );
   }
 
-  // Support both "name" and "hospital" keys (in case some data uses hospital:)
-  const displayName = hospital.name || hospital.hospital || "Hospital";
-
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="bg-white border-b border-gray-100 px-4 py-3">
-        <div className="max-w-5xl mx-auto flex items-center justify-between gap-3">
-          <Link
-            to="/hospital-detail"
-            className="flex items-center gap-2 text-xs text-gray-500 hover:text-gray-700 no-underline"
-          >
-            <svg
-              width="12"
-              height="12"
-              viewBox="0 0 12 12"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-            >
-              <path d="M8 2L4 6l4 4" />
-            </svg>
-            Back
+    <div className="min-h-screen bg-[#F9FAFB] pb-20">
+      {/* Navigation Header */}
+      <nav className="sticky top-0 z-10 bg-white/80 backdrop-blur-md border-b border-gray-200">
+        <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+          <Link to="/hospital-detail" className="group flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-teal-600 transition-colors">
+            <svg className="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"/></svg>
+            Directory
           </Link>
-
-          <Link
-            to="/"
-            className="text-xs text-gray-500 hover:text-gray-700 no-underline"
-          >
-            Home
-          </Link>
+          <div className="flex gap-4">
+             <Link to="/" className="text-sm font-medium text-gray-500 hover:text-gray-900">Home</Link>
+          </div>
         </div>
-      </div>
+      </nav>
 
-      <div className="max-w-5xl mx-auto px-4 py-8">
-        <div className="bg-white border border-gray-100 rounded-2xl p-6">
-          <div className="flex items-start justify-between gap-4">
-            <div className="min-w-0">
-              <h1 className="text-xl md:text-2xl font-semibold text-gray-900">
-                {displayName}
+      <main className="max-w-5xl mx-auto px-6 mt-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          
+          {/* Main Content Area */}
+          <div className="lg:col-span-2 space-y-6">
+            <section className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
+              <div className="flex flex-wrap gap-2 mb-4">
+                <Badge variant="info">{hospital.type}</Badge>
+                {hospital.emergency && <Badge variant="primary">Emergency 24/7</Badge>}
+                {hospital.openNow ? <Badge variant="success">Open Now</Badge> : <Badge variant="default">Closed</Badge>}
+              </div>
+
+              <h1 className="text-3xl font-bold text-gray-900 tracking-tight">
+                {hospital.name}
               </h1>
+              
+              <div className="mt-4 flex flex-col gap-2 text-gray-600">
+                <div className="flex items-start gap-2">
+                  <svg className="w-5 h-5 text-gray-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                  <p className="text-base leading-relaxed">{hospital.address}, {hospital.location}</p>
+                </div>
+              </div>
 
-              <p className="text-sm text-teal-700 font-medium mt-1">
-                {hospital.location || "Unknown location"}
-              </p>
+              <div className="mt-8 pt-8 border-t border-gray-50">
+                <h3 className="text-sm font-bold text-gray-900 uppercase tracking-widest mb-3">About the Facility</h3>
+                <p className="text-gray-600 leading-relaxed text-base">
+                  {hospital.about}
+                </p>
+              </div>
+            </section>
 
-              <p className="text-sm text-gray-500 mt-1">
-                {hospital.address || "Address not available"}
-              </p>
+            {/* Departments Grid */}
+            <section className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
+              <h3 className="text-sm font-bold text-gray-900 uppercase tracking-widest mb-6">Medical Departments</h3>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                {hospital.departments.map((dept) => (
+                  <div key={dept} className="flex items-center p-3 rounded-xl bg-gray-50 text-gray-700 text-sm font-medium border border-transparent hover:border-teal-100 hover:bg-teal-50 transition-all">
+                    <span className="w-1.5 h-1.5 rounded-full bg-teal-400 mr-2" />
+                    {dept}
+                  </div>
+                ))}
+              </div>
+            </section>
+          </div>
 
-              <div className="mt-3 flex flex-wrap items-center gap-2">
-                {hospital.type && (
-                  <Chip className="bg-blue-50 text-blue-700">
-                    {hospital.type}
-                  </Chip>
-                )}
+          {/* Sidebar Actions */}
+          <div className="lg:col-span-1 space-y-6">
+            <div className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 sticky top-24">
+              <div className="flex justify-between items-center mb-6">
+                <div>
+                  <p className="text-2xl font-bold text-gray-900">★ {hospital.rating}</p>
+                  <p className="text-xs text-gray-500 font-medium uppercase">{hospital.reviews} Reviews</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-2xl font-bold text-gray-900">{hospital.dist}km</p>
+                  <p className="text-xs text-gray-500 font-medium uppercase">Distance</p>
+                </div>
+              </div>
 
-                {hospital.emergency && (
-                  <Chip className="bg-teal-50 text-teal-700">
-                    24/7 Emergency
-                  </Chip>
-                )}
+              <div className="space-y-3">
+                <a 
+                  href={`tel:${hospital.phone}`} 
+                  className="flex items-center justify-center gap-2 w-full py-4 bg-teal-600 text-white rounded-2xl font-semibold shadow-lg shadow-teal-100 hover:bg-teal-700 hover:shadow-teal-200 transition-all active:scale-[0.98]"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                  Call Hospital
+                </a>
+                <button className="flex items-center justify-center gap-2 w-full py-4 bg-white text-gray-900 border border-gray-200 rounded-2xl font-semibold hover:bg-gray-50 transition-all">
+                  Get Directions
+                </button>
+              </div>
 
-                {typeof hospital.openNow === "boolean" &&
-                  (hospital.openNow ? (
-                    <Chip className="bg-emerald-50 text-emerald-700">
-                      Open now
-                    </Chip>
-                  ) : (
-                    <Chip className="bg-gray-100 text-gray-400">Closed</Chip>
-                  ))}
-
-                {typeof hospital.rating === "number" && (
-                  <Chip>
-                    ★ {hospital.rating}{" "}
-                    <span className="text-gray-400">
-                      ({hospital.reviews ?? 0})
-                    </span>
-                  </Chip>
-                )}
-
-                {hospital.dist != null && <Chip>{hospital.dist} km</Chip>}
-                {hospital.hours && <Chip>{hospital.hours}</Chip>}
+              <div className="mt-6 pt-6 border-t border-gray-50 space-y-4">
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-500">Business Hours</span>
+                  <span className="text-gray-900 font-medium">{hospital.hours}</span>
+                </div>
               </div>
             </div>
 
-            <div className="flex flex-col items-end gap-2 flex-shrink-0">
-              {hospital.phone ? (
-                <a
-                  href={`tel:${hospital.phone}`}
-                  className="text-xs px-3 py-2 rounded-lg bg-teal-600 text-white font-medium hover:bg-teal-700 transition no-underline"
-                >
-                  Call
-                </a>
-              ) : (
-                <button
-                  disabled
-                  className="text-xs px-3 py-2 rounded-lg bg-gray-100 text-gray-300 cursor-not-allowed"
-                >
-                  Call
-                </button>
-              )}
-
-              <button className="text-xs px-3 py-2 rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50 transition">
-                Directions
-              </button>
+            {/* Amenities Section */}
+            <div className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100">
+               <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Facilities</h3>
+               <div className="flex flex-wrap gap-2">
+                 {hospital.facilities.map(f => (
+                   <span key={f} className="text-xs px-3 py-1.5 bg-gray-50 text-gray-600 rounded-lg border border-gray-100">
+                     {f}
+                   </span>
+                 ))}
+               </div>
             </div>
           </div>
-        </div>
 
-        <div className="mt-4 bg-white border border-gray-100 rounded-2xl p-6">
-          <p className="text-sm font-medium text-gray-900">About</p>
-          <p className="mt-2 text-sm text-gray-600 leading-relaxed">
-            {hospital.about || "No description available yet."}
-          </p>
         </div>
-
-        <div className="mt-4 bg-white border border-gray-100 rounded-2xl p-6">
-          <p className="text-sm font-medium text-gray-900">Departments</p>
-          <div className="mt-3 flex flex-wrap gap-2">
-            {(hospital.departments || []).length ? (
-              hospital.departments.map((d) => (
-                <span
-                  key={d}
-                  className="text-xs px-2.5 py-1 rounded-lg bg-teal-50 text-teal-700 border border-teal-200"
-                >
-                  {d}
-                </span>
-              ))
-            ) : (
-              <p className="text-sm text-gray-400">No departments listed.</p>
-            )}
-          </div>
-        </div>
-
-        <div className="mt-4 bg-white border border-gray-100 rounded-2xl p-6">
-          <p className="text-sm font-medium text-gray-900">Facilities</p>
-          <div className="mt-3 flex flex-wrap gap-2">
-            {(hospital.facilities || []).length ? (
-              hospital.facilities.map((f) => (
-                <span
-                  key={f}
-                  className="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600"
-                >
-                  {f}
-                </span>
-              ))
-            ) : (
-              <p className="text-sm text-gray-400">No facilities listed.</p>
-            )}
-          </div>
-        </div>
-      </div>
+      </main>
     </div>
   );
 }

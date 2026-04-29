@@ -9,10 +9,8 @@ const Hero = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  // List of cities for the dropdown
   const cities = ["Rajshahi", "Dhaka", "Chittagong", "Sylhet", "Khulna"];
 
-  // Close dropdown if clicking outside of it
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -70,7 +68,6 @@ const Hero = () => {
         />
       </div>
 
-      {/* Search Container */}
       <div className="flex w-full max-w-2xl flex-col gap-3 sm:flex-row sm:gap-0">
         <div className="relative flex-grow">
           <Searchbar
@@ -104,7 +101,6 @@ const Hero = () => {
             </svg>
           </button>
 
-          {/* Dropdown Menu */}
           {isDropdownOpen && (
             <div className="absolute bottom-full mb-2 left-0 w-40 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 z-50">
               <div className="py-1" role="menu">
